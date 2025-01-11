@@ -1,5 +1,4 @@
-﻿using System.Runtime.InteropServices.Marshalling;
-using AgarioGame.Engine;
+﻿using AgarioGame.Engine;
 using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
