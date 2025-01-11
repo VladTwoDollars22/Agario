@@ -1,5 +1,4 @@
-﻿using System.Drawing;
-using SFML.Graphics;
+﻿using SFML.Graphics;
 using SFML.System;
 
 namespace AgarioGame.Engine
