@@ -22,9 +22,17 @@ namespace AgarioGame.Engine
 
             _speed = 340;
         }
+        public void Update(float deltaTime)
+        {
+            Move();
+        }
+        public void Draw(RenderWindow window)
+        {
+            window.Draw(_shape);
+        }
         public void SetVelocity(Vector2f direction)
         {
-            _velocity = Normalize(direction) * _speed;
+            _velocity = Mathematics.Normalize(direction) * _speed;
         }
         public void SetSpeed(float speed)
         {
@@ -48,23 +56,6 @@ namespace AgarioGame.Engine
         public void SetPosition(Vector2f pos)
         {
             _shape.Position = pos;
-        }
-        private Vector2f Normalize(Vector2f vector)
-        {
-            float length = (float)Math.Sqrt(vector.X * vector.X + vector.Y * vector.Y);
-
-            if (length > 0)
-            {
-                return new Vector2f(vector.X / length, vector.Y / length);
-            }
-            else
-            {
-                return new Vector2f(0, 0);
-            }
-        }
-        public void Destroy()
-        {
-            
         }
     }
 }

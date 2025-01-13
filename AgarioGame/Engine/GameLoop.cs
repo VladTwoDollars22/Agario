@@ -7,11 +7,15 @@ namespace AgarioGame
 {
     public abstract class GameLoop
     {
-        private Window window;
+        private RenderWindow window;
 
         private int targetFPS;
 
         private float _updateTrigger;
+
+        public event Action Draw;
+
+        public RenderWindow Window => window;
         public GameLoop()
         {
             window = new RenderWindow(new VideoMode(1600, 900), "Game window");
@@ -20,6 +24,13 @@ namespace AgarioGame
 
             _updateTrigger = 1f / targetFPS;
         }
+
+
+        public void DrawAll()
+        {
+            Draw?.Invoke();
+        }
+
         public void MainGameLoop()
         {
             Initialisation();
