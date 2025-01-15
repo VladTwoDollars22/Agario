@@ -3,7 +3,7 @@ using SFML.System;
 
 namespace AgarioGame.Engine
 {
-    public class GameObject
+    public class GameObject : IUpdatable,IDrawable
     {
         private CircleShape _shape;
         private Vector2f _velocity;
@@ -22,7 +22,7 @@ namespace AgarioGame.Engine
 
             _speed = 340;
         }
-        public void Update(float deltaTime)
+        public void Update()
         {
             Move();
         }

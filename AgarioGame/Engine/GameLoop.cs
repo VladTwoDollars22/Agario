@@ -14,6 +14,7 @@ namespace AgarioGame
         private float _updateTrigger;
 
         public event Action Draw;
+        public event Action Update;
 
         public RenderWindow Window => window;
         public GameLoop()
@@ -29,6 +30,12 @@ namespace AgarioGame
         public void DrawAll()
         {
             Draw?.Invoke();
+        
+        
+        }
+        public void UpdateAll()
+        {
+            Update?.Invoke();
         }
 
         public void MainGameLoop()
