@@ -1,18 +1,26 @@
 ﻿using SFML.Graphics;
 using SFML.System;
+using SFML.Window;
 
 namespace AgarioGame.Engine
 {
     public class GameObject : IUpdatable,IDrawable
     {
         private CircleShape _shape;
+
         private Vector2f _velocity;
         private float _speed;
 
+        private RenderWindow _window;
+
+        private bool _isActive;
+        private bool _isVisible;
+
         public Vector2f GetVelocity() => _velocity;
 
-        public GameObject(Vector2f spawnPosition, Vector2f scale, float radius, SFML.Graphics.Color color)
+        public GameObject(Vector2f spawnPosition, float radius, Color color)
         {
+            Console.WriteLine("Created");
             _shape = new CircleShape()
             {
                 Radius = radius,
@@ -21,14 +29,23 @@ namespace AgarioGame.Engine
             };
 
             _speed = 340;
+
+            _isActive = true;
+            _isVisible = true;
         }
         public void Update()
         {
-            Move();
+            if (_isActive)
+            {
+                Move();
+            }
         }
         public void Draw(RenderWindow window)
         {
-            window.Draw(_shape);
+            if (_isVisible)
+            {
+                window.Draw(_shape);
+            }
         }
         public void SetVelocity(Vector2f direction)
         {
@@ -56,6 +73,34 @@ namespace AgarioGame.Engine
         public void SetPosition(Vector2f pos)
         {
             _shape.Position = pos;
+        }
+        public void RegisterObject(GameLoop gameLoop)
+        {
+            SetWindow(gameLoop.Window);
+
+            gameLoop.DrawEvent += Draw;
+            gameLoop.UpdateEvent += Update;
+        }
+        public void SetWindow(RenderWindow window)
+        {
+            _window = window;
+        }
+        public void Draw()
+        {
+            _window?.Draw(_shape);
+        }
+        public void Destroy()
+        {
+            _isActive = false;
+            _isVisible = false;
+        }
+        public void SetVisiblity(bool isVisible)
+        {
+            _isVisible = isVisible;
+        }
+        public void SetActive(bool isActive)
+        {
+            _isActive = isActive;
         }
     }
 }

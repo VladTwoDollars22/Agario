@@ -5,47 +5,39 @@ using SFML.Window;
 
 namespace AgarioGame
 {
-    public abstract class GameLoop
+    public class GameLoop
     {
-        private RenderWindow window;
+        private RenderWindow _window;
 
-        private int targetFPS;
+        private int _targetFPS;
 
         private float _updateTrigger;
 
-        public event Action Draw;
-        public event Action Update;
+        public event Action DrawEvent;
+        public event Action UpdateEvent;
 
-        public RenderWindow Window => window;
+        private Game _game;
+
+        public RenderWindow Window => _window;
         public GameLoop()
         {
-            window = new RenderWindow(new VideoMode(1600, 900), "Game window");
+            _window = new RenderWindow(new VideoMode(1600, 900), "Game window");
 
-            targetFPS = 120;
+            _targetFPS = 120;
 
-            _updateTrigger = 1f / targetFPS;
+            _updateTrigger = 1f / _targetFPS;
+
+            _game = new Game(this);
         }
-
-
-        public void DrawAll()
-        {
-            Draw?.Invoke();
-        
-        
-        }
-        public void UpdateAll()
-        {
-            Update?.Invoke();
-        }
-
         public void MainGameLoop()
         {
+            Console.WriteLine("r153512");
             Initialisation();
-
+            Console.WriteLine("r125121111111");
             Clock clock = new Clock();
             long lastFrameTime = clock.ElapsedTime.AsMilliseconds();
 
-            while (window.IsOpen)
+            while (_window.IsOpen)
             {
                 long currentTime = clock.ElapsedTime.AsMilliseconds();
                 GameTime.SetDeltaTime((currentTime - lastFrameTime) / 1000f);
@@ -56,35 +48,49 @@ namespace AgarioGame
                 {
                     lastFrameTime = currentTime;
 
-                    Logic();
+                    UpdateAll();
                     Render();
                 }
             }
         }
-
         private void Initialisation()
         {
+            _game.Initialisation();
             InitializeWindowEvents();
         }
         private void InitializeWindowEvents()
         {
-            window.Closed += WindowClosed;
+            _window.Closed += WindowClosed;
         }
-        public abstract void GameInitialisation();
-
+        public void GameInitialisation()
+        {
+            _game.Initialisation();
+        }
         private void InputProcess()
         {
-            window.DispatchEvents();
+            _window.DispatchEvents();
         }
-
-        private void Logic()
+        private void Update()
         {
+            UpdateAll();
 
+            _game.Logic();
         }
-
+        private void UpdateAll()
+        {
+            UpdateEvent?.Invoke();
+        }
         private void Render()
         {
-            window.Display();
+            _window.Clear();
+
+            DrawAll();
+
+            _window.Display();
+        }
+        public void DrawAll()
+        {
+            DrawEvent?.Invoke();
         }
         static void WindowClosed(object sender, EventArgs e)
         {
