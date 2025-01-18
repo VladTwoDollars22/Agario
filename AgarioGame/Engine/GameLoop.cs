@@ -15,6 +15,7 @@ namespace AgarioGame
 
         public event Action DrawEvent;
         public event Action UpdateEvent;
+        public event Action UpdateInput;
 
         private Game _game;
 
@@ -31,9 +32,8 @@ namespace AgarioGame
         }
         public void MainGameLoop()
         {
-            Console.WriteLine("r153512");
             Initialisation();
-            Console.WriteLine("r125121111111");
+
             Clock clock = new Clock();
             long lastFrameTime = clock.ElapsedTime.AsMilliseconds();
 
@@ -69,6 +69,7 @@ namespace AgarioGame
         private void InputProcess()
         {
             _window.DispatchEvents();
+            UpdateInput?.Invoke();
         }
         private void Update()
         {

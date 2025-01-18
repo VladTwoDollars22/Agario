@@ -4,7 +4,7 @@ using SFML.Window;
 
 namespace AgarioGame.Engine
 {
-    public class GameObject : IUpdatable,IDrawable
+    public abstract class GameObject : IUpdatable,IDrawable
     {
         private CircleShape _shape;
 
@@ -20,7 +20,6 @@ namespace AgarioGame.Engine
 
         public GameObject(Vector2f spawnPosition, float radius, Color color)
         {
-            Console.WriteLine("Created");
             _shape = new CircleShape()
             {
                 Radius = radius,
@@ -37,9 +36,10 @@ namespace AgarioGame.Engine
         {
             if (_isActive)
             {
-                Move();
+                Logic();
             }
         }
+        public abstract void Logic();
         public void Draw(RenderWindow window)
         {
             if (_isVisible)
@@ -101,6 +101,10 @@ namespace AgarioGame.Engine
         public void SetActive(bool isActive)
         {
             _isActive = isActive;
+        }
+        public void SetRadius(float newRad)
+        {
+            _shape.Radius = newRad;
         }
     }
 }

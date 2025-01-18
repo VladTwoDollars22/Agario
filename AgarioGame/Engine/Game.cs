@@ -11,13 +11,9 @@ namespace AgarioGame.Engine
         }
         public void Initialisation()
         {
-            GameObject GameObj = new(new SFML.System.Vector2f(1, 1), 50, Color.Yellow);
+            PlayerController GameObj = new(new SFML.System.Vector2f(50, 50), 50, Color.Yellow, 340);
             GameObj.RegisterObject(gameloop);
-            GameObj.SetSpeed(100);
-            GameObj.SetVelocity(new SFML.System.Vector2f(1,1));
-            TextObject text = new TextObject(new SFML.System.Vector2f(800,100));
-            text.EditTextFilling("Aboba");
-            text.RegisterText(gameloop);
+            GameObj.RegisterActor(gameloop);
             
         }
         public void Logic()
