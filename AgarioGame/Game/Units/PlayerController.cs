@@ -12,12 +12,10 @@ namespace AgarioGame.Engine
         {
             SetSpeed(speed);
         }
-
         public void RegisterActor(GameLoop gameLoop)
         {
             gameLoop.UpdateInput += InputProcess;
         }
-
         public override void Logic()
         {
             SetRadius(mass / 10f);
@@ -37,7 +35,6 @@ namespace AgarioGame.Engine
 
             if (InputManager.KeyPressed(Keyboard.Key.W)) 
             {
-                Console.WriteLine("W");
                 direction.Y -= 1f;
             }
             if (InputManager.KeyPressed(Keyboard.Key.S))
