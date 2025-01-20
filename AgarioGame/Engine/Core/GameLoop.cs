@@ -69,6 +69,7 @@ namespace AgarioGame
         private void InputProcess()
         {
             _window.DispatchEvents();
+
             InputManager.UpdateInput();
             UpdateInput?.Invoke();
         }

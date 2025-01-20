@@ -1,5 +1,4 @@
-﻿
-namespace AgarioGame.Engine
+﻿namespace AgarioGame.Engine
 {
     public static class GameTime
     {

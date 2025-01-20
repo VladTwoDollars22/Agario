@@ -26,8 +26,6 @@ namespace AgarioGame.Engine
                 Position = spawnPosition,
             };
 
-            _speed = 340;
-
             _isActive = true;
             _isVisible = true;
         }
@@ -42,7 +40,7 @@ namespace AgarioGame.Engine
         public abstract void Logic();
         public void Draw(RenderWindow window)
         {
-            if (_isVisible)
+            if (_isVisible && _isActive)
             {
                 window.Draw(_shape);
             }
