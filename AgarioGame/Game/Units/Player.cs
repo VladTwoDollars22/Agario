@@ -1,7 +1,4 @@
-﻿using System.Drawing;
-using System.Numerics;
-using SFML.System;
-using SFML.Window;
+﻿using SFML.System;
 
 namespace AgarioGame.Engine
 {
@@ -19,9 +16,7 @@ namespace AgarioGame.Engine
         public override void Logic()
         {
             SetRadius(mass / 10f);
-            Move();
         }
-
         public void InputProcess()
         {
             SetVelocity(new Vector2f(0, 0));

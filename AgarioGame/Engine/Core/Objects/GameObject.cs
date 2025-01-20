@@ -1,6 +1,5 @@
 ﻿using SFML.Graphics;
 using SFML.System;
-using SFML.Window;
 
 namespace AgarioGame.Engine
 {
@@ -37,6 +36,7 @@ namespace AgarioGame.Engine
             if (_isActive)
             {
                 Logic();
+                Move();
             }
         }
         public abstract void Logic();

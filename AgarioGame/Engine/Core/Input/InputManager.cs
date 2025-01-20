@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-using SFML.System;
+﻿using SFML.System;
 using SFML.Window;
 
 namespace AgarioGame.Engine
