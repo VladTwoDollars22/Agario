@@ -1,4 +1,5 @@
-﻿using AgarioGame.Engine;
+﻿using System.Numerics;
+using AgarioGame.Engine;
 using SFML.Graphics;
 
 namespace AgarioGame.Game.Factoryes
@@ -22,6 +23,7 @@ namespace AgarioGame.Game.Factoryes
             Player enemy;
             enemy = new(Mathematics.GetRandomPosition(GameConfig.GameFieldSize), GameConfig.PlayersRadius, Color.White,true);
             enemy.RegisterObject(_gameLoop);
+            enemy.RegisterActor(_gameLoop);
 
             return enemy;
         }

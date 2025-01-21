@@ -65,11 +65,13 @@ namespace AgarioGame.Engine
         {
             int randInt = Mathematics.GetRandomNumber(0,enemyCount - 1);
 
-            _player.IsBot = false;
+            _player.IsBot = true;
 
-            enemyList[randInt].IsBot = true;
+            enemyList[randInt].IsBot = false;
 
             (_player, enemyList[randInt]) = (enemyList[randInt], _player);
+
+            InputManager.fIsPressed = false;
         }
         public void CheckOccurences()
         {
