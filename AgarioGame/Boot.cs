@@ -1,4 +1,4 @@
-﻿namespace AgarioGame.Engine
+﻿namespace AgarioGame
 {
     internal class Boot
     {

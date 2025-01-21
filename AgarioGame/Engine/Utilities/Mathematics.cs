@@ -1,9 +1,11 @@
-﻿using SFML.System;
+﻿using System;
+using SFML.System;
 
 namespace AgarioGame.Engine
 {
     public static class Mathematics
     {
+        private static Random _random = new Random();
         public static Vector2f Normalize(Vector2f vector)
         {
             float length = (float)Math.Sqrt(vector.X * vector.X + vector.Y * vector.Y);
@@ -16,6 +18,24 @@ namespace AgarioGame.Engine
             {
                 return new Vector2f(0, 0);
             }
+        }
+        public static Vector2f GetRandomPosition(Vector2f field)
+        {
+            float x = (float)_random.NextDouble() * field.X;
+            float y = (float)_random.NextDouble() * field.Y;
+
+            return new Vector2f(x, y);
+        }
+        public static int GetRandomNumber(int min,int max)
+        {
+           return _random.Next(min, max);
+        }
+        public static float Distance(Vector2f pointA, Vector2f pointB)
+        {
+            float deltaX = pointB.X - pointA.X;
+            float deltaY = pointB.Y - pointA.Y;
+
+            return (float)Math.Sqrt(deltaX * deltaX + deltaY * deltaY);
         }
     }
 }
