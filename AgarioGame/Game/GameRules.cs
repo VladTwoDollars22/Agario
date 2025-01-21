@@ -7,7 +7,7 @@ namespace AgarioGame.Engine
     {
         private GameLoop _gameLoop;
 
-        private List<Enemy> enemyList;
+        private List<Player> enemyList;
         private List<Food> foodList;
 
         private Player _player;
@@ -55,6 +55,21 @@ namespace AgarioGame.Engine
         public void Logic()
         {
             CheckOccurences();
+
+            if(InputManager.fIsPressed == true)
+            {
+                Swap();
+            }
+        }
+        private void Swap()
+        {
+            int randInt = Mathematics.GetRandomNumber(0,enemyCount - 1);
+
+            _player.IsBot = false;
+
+            enemyList[randInt].IsBot = true;
+
+            (_player, enemyList[randInt]) = (enemyList[randInt], _player);
         }
         public void CheckOccurences()
         {
@@ -69,7 +84,7 @@ namespace AgarioGame.Engine
 
             foreach (Food f in foodList)
             {
-                foreach (Enemy e in enemyList)
+                foreach (Player e in enemyList)
                 {
                     if (f.ObjectIn(e))
                     {
@@ -79,7 +94,7 @@ namespace AgarioGame.Engine
                 }     
             }
 
-            foreach(Enemy e in enemyList)
+            foreach(Player e in enemyList)
             {
                 if (_player.ObjectIn(e))
                 {

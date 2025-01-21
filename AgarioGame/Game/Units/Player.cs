@@ -9,10 +9,12 @@ namespace AgarioGame.Engine
         private float massFactor;
         private float massGrowMultiplicator;
 
+        public bool IsBot;
+
         private float baseSpeed;
 
         public float Mass => mass;
-        public Player(Vector2f spawnPos,float radius,SFML.Graphics.Color color) : base(spawnPos, radius, color)
+        public Player(Vector2f spawnPos,float radius, SFML.Graphics.Color color, bool isBot) : base(spawnPos, radius, color)
         {
             mass = GameConfig.PlayerMass;
             massFactor = GameConfig.MassFactor;
@@ -22,6 +24,8 @@ namespace AgarioGame.Engine
             SetGameField(GameConfig.GameFieldSize);
 
             UpdateSpeed();
+
+            IsBot = isBot;
         }
         public void RegisterActor(GameLoop gameLoop)
         {
@@ -33,9 +37,16 @@ namespace AgarioGame.Engine
         }
         public void InputProcess()
         {
-            SetVelocity(new Vector2f(0, 0));
+            if (!IsBot)
+            {
+                SetVelocity(new Vector2f(0, 0));
 
-            SetVelocity(InputManager.GetInput());
+                SetVelocity(InputManager.GetInput());
+            }
+            else
+            {
+                return;
+            }
         }
         public void Upgrade(float newMass)
         {

@@ -6,13 +6,26 @@ namespace AgarioGame.Engine
     public static class InputManager
     {
         public static Vector2f direction;
+        public static bool fIsPressed;
         public static Vector2f GetInput()
         {
             return direction;
         }
         public static void UpdateInput()
         {
-            direction = new(0,0);
+            UpdateDirectionInput();
+            UpdateActionsInput();
+        }
+        public static void UpdateActionsInput()
+        {
+            if (Keyboard.IsKeyPressed(Keyboard.Key.F))
+            {
+                fIsPressed = true;
+            }
+        }
+        public static void UpdateDirectionInput()
+        {
+            direction = new(0, 0);
 
             if (Keyboard.IsKeyPressed(Keyboard.Key.W))
             {

@@ -17,10 +17,10 @@ namespace AgarioGame.Game.Factoryes
 
             return food;
         }
-        public Enemy InstantiateEnemy()
+        public Player InstantiateEnemy()
         {
-            Enemy enemy;
-            enemy = new(Mathematics.GetRandomPosition(GameConfig.GameFieldSize), GameConfig.PlayersRadius, Color.White);
+            Player enemy;
+            enemy = new(Mathematics.GetRandomPosition(GameConfig.GameFieldSize), GameConfig.PlayersRadius, Color.White,true);
             enemy.RegisterObject(_gameLoop);
 
             return enemy;
@@ -28,7 +28,7 @@ namespace AgarioGame.Game.Factoryes
         public Player InstantiatePlayer()
         {
             Player player;
-            player = new(Mathematics.GetRandomPosition(GameConfig.GameFieldSize), GameConfig.PlayersRadius, Color.Yellow);
+            player = new(Mathematics.GetRandomPosition(GameConfig.GameFieldSize), GameConfig.PlayersRadius, Color.Yellow,false);
             player.RegisterObject(_gameLoop);
             player.RegisterActor(_gameLoop);
 
