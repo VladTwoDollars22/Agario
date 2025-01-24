@@ -1,5 +1,6 @@
 ﻿using AgarioGame.Game;
 using AgarioGame.Game.Factoryes;
+using AgarioGame.Game.Units;
 
 namespace AgarioGame.Engine
 {
@@ -7,10 +8,10 @@ namespace AgarioGame.Engine
     {
         private GameLoop _gameLoop;
 
-        private List<Player> enemyList;
+        private List<Controller> enemyList;
         private List<Food> foodList;
 
-        private Player _player;
+        private Controller _player;
 
         private int _foodCount;
         private int enemyCount;
@@ -65,11 +66,7 @@ namespace AgarioGame.Engine
         {
             int randInt = Mathematics.GetRandomNumber(0,enemyCount - 1);
 
-            _player.IsBot = true;
-
-            enemyList[randInt].IsBot = false;
-
-            (_player, enemyList[randInt]) = (enemyList[randInt], _player);
+            (enemyList[randInt].Pawn,_player.Pawn) = (_player.Pawn, enemyList[randInt].Pawn);
 
             InputManager.fIsPressed = false;
         }
@@ -77,36 +74,36 @@ namespace AgarioGame.Engine
         {
             foreach (Food f in foodList)
             {
-                if (f.ObjectIn(_player))
+                if (f.ObjectIn(_player.Pawn))
                 {
                     f.EatMe();
-                    _player.Upgrade(f.Reward);
+                    _player.Pawn.Upgrade(f.Reward);
                 }
             }
 
             foreach (Food f in foodList)
             {
-                foreach (Player e in enemyList)
+                foreach (Controller e in enemyList)
                 {
-                    if (f.ObjectIn(e))
+                    if (f.ObjectIn(e.Pawn))
                     {
                         f.EatMe();
-                        e.Upgrade(f.Reward);
+                        e.Pawn.Upgrade(f.Reward);
                     }
                 }     
             }
 
-            foreach(Player e in enemyList)
+            foreach(Controller e in enemyList)
             {
-                if (_player.ObjectIn(e))
+                if (_player.Pawn.ObjectIn(e.Pawn))
                 {
-                    _player.EatMe();
-                    e.Upgrade(_player.Mass);
+                    _player.Pawn.EatMe();
+                    e.Pawn.Upgrade(_player.Pawn.Mass);
                 }
-                else if (e.ObjectIn(_player))
+                else if (e.Pawn.ObjectIn(_player.Pawn))
                 {
-                    e.EatMe();
-                    _player.Upgrade(e.Mass);
+                    e.Pawn.EatMe();
+                    _player.Pawn.Upgrade(e.Pawn.Mass);
                 }
             }
         }

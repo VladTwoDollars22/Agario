@@ -1,5 +1,6 @@
-﻿using System.Numerics;
+﻿using System;
 using AgarioGame.Engine;
+using AgarioGame.Game.Units;
 using SFML.Graphics;
 
 namespace AgarioGame.Game.Factoryes
@@ -18,23 +19,23 @@ namespace AgarioGame.Game.Factoryes
 
             return food;
         }
-        public Player InstantiateEnemy()
+        public Controller InstantiateEnemy()
         {
-            Player enemy;
-            enemy = new(Mathematics.GetRandomPosition(GameConfig.GameFieldSize), GameConfig.PlayersRadius, Color.White,true);
-            enemy.RegisterObject(_gameLoop);
-            enemy.RegisterActor(_gameLoop);
+            PlayableObject enemy;
+            enemy = new(Mathematics.GetRandomPosition(GameConfig.GameFieldSize), GameConfig.PlayersRadius, Color.White,_gameLoop);
 
-            return enemy;
+            Controller controller = new(true,_gameLoop,enemy);
+
+            return controller;
         }
-        public Player InstantiatePlayer()
+        public Controller InstantiatePlayer()
         {
-            Player player;
-            player = new(Mathematics.GetRandomPosition(GameConfig.GameFieldSize), GameConfig.PlayersRadius, Color.Yellow,false);
-            player.RegisterObject(_gameLoop);
-            player.RegisterActor(_gameLoop);
+            PlayableObject player;
+            player = new(Mathematics.GetRandomPosition(GameConfig.GameFieldSize), GameConfig.PlayersRadius, Color.Yellow,_gameLoop);
 
-            return player;
+            Controller controller = new(false, _gameLoop, player);
+
+            return controller;
         }
     }
 }

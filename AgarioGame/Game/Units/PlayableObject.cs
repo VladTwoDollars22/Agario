@@ -1,20 +1,18 @@
 ﻿using AgarioGame.Game;
+using AgarioGame.Game.Units;
 using SFML.System;
 
 namespace AgarioGame.Engine
 {
-    public class Player : GameObject,IInputHandler
+    public class PlayableObject : GameObject
     {
         private float mass;
         private float massFactor;
         private float massGrowMultiplicator;
 
-        public bool IsBot;
-
         private float baseSpeed;
-
         public float Mass => mass;
-        public Player(Vector2f spawnPos,float radius, SFML.Graphics.Color color, bool isBot) : base(spawnPos, radius, color)
+        public PlayableObject(Vector2f spawnPos,float radius, SFML.Graphics.Color color,GameLoop loop) : base(spawnPos, radius, color)
         {
             mass = GameConfig.PlayerMass;
             massFactor = GameConfig.MassFactor;
@@ -25,28 +23,11 @@ namespace AgarioGame.Engine
 
             UpdateSpeed();
 
-            IsBot = isBot;
-        }
-        public void RegisterActor(GameLoop gameLoop)
-        {
-            gameLoop.UpdateInput += InputProcess;
+            RegisterObject(loop);
         }
         public override void Logic()
         {
             
-        }
-        public void InputProcess()
-        {
-            if (!IsBot)
-            {
-                SetVelocity(new Vector2f(0, 0));
-
-                SetVelocity(InputManager.GetInput());
-            }
-            else
-            {
-                return;
-            }
         }
         public void Upgrade(float newMass)
         {
