@@ -63,7 +63,7 @@ namespace AgarioGame.Engine
             if (!_isActive)
                 return;
 
-            Vector2f nextPosition = _shape.Position + _velocity * GameTime.DeltaTime;
+            Vector2f nextPosition = _shape.Position + _velocity * Time.DeltaTime;
             float ShapeRadius2 = _shape.Radius * 2;
 
             if (nextPosition.X < 0)

@@ -1,6 +1,6 @@
 ﻿namespace AgarioGame.Engine
 {
-    public static class GameTime
+    public static class Time
     {
         private static float deltaTime = 0;
         private static float timeScale = 1f;
