@@ -13,13 +13,15 @@ namespace AgarioGame.Engine
         private List<Color> _foodColors;
 
         public float Reward => _mass;
-        public Food(Vector2f spawnPos, float radius, Color color) : base(spawnPos, radius, color)
+        public Food(GameLoop loop) : base()
         {
             _foodColors = GameConfig.FoodColors;
 
             SetGameField(GameConfig.GameFieldSize);
 
             _mass = GameConfig.FoodReward;
+
+            RegisterObject(loop);
 
             SetRandomColor();
         }

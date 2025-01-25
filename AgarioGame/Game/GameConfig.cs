@@ -15,8 +15,11 @@ namespace AgarioGame.Game
 
         public static Vector2f GameFieldSize = new(1600f, 900f);
 
-        public static List<Color> FoodColors = new List<Color> { Color.Red, Color.Blue, Color.Yellow, Color.Green };
+        public static List<Color> FoodColors = new List<Color> { Color.Red, Color.Blue, Color.Magenta, Color.Green };
+        public static Color PlayerColor = Color.Yellow;
+
         public const float FoodReward = 5f;
+        public const float FoodRadius = 10;
 
         public const int FoodCount = 50;
         public const int EmenyCount = 10;

@@ -12,7 +12,7 @@ namespace AgarioGame.Engine
 
         private float baseSpeed;
         public float Mass => mass;
-        public PlayableObject(Vector2f spawnPos,float radius, SFML.Graphics.Color color,GameLoop loop) : base(spawnPos, radius, color)
+        public PlayableObject(GameLoop loop) : base()
         {
             mass = GameConfig.PlayerMass;
             massFactor = GameConfig.MassFactor;

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Numerics;
 using AgarioGame.Engine;
 using AgarioGame.Game.Units;
 using SFML.Graphics;
@@ -14,26 +15,24 @@ namespace AgarioGame.Game.Factoryes
         }
         public Food InstantiateFood()
         {
-            Food food = new(Mathematics.GetRandomPosition(GameConfig.GameFieldSize), 10, Color.Green);
-            food.RegisterObject(_gameLoop);
+            Food food = new(_gameLoop);
+
+            food.SetPosition(Mathematics.GetRandomPosition(GameConfig.GameFieldSize));
+            food.SetRadius(GameConfig.FoodRadius);
 
             return food;
         }
-        public Controller InstantiateEnemy()
-        {
-            PlayableObject enemy;
-            enemy = new(Mathematics.GetRandomPosition(GameConfig.GameFieldSize), GameConfig.PlayersRadius, Color.White,_gameLoop);
-
-            Controller controller = new(true,_gameLoop,enemy);
-
-            return controller;
-        }
-        public Controller InstantiatePlayer()
+        public Controller InstantiatePlayer(bool isBot)
         {
             PlayableObject player;
-            player = new(Mathematics.GetRandomPosition(GameConfig.GameFieldSize), GameConfig.PlayersRadius, Color.Yellow,_gameLoop);
 
-            Controller controller = new(false, _gameLoop, player);
+            player = new(_gameLoop);
+
+            player.SetPosition(Mathematics.GetRandomPosition(GameConfig.GameFieldSize));
+            player.SetRadius(GameConfig.PlayersRadius);
+            player.SetColor(GameConfig.PlayerColor);
+
+            Controller controller = new(isBot, _gameLoop, player);
 
             return controller;
         }

@@ -20,14 +20,9 @@ namespace AgarioGame.Engine
         private Vector2f _gameField;
         public Vector2f GetVelocity() => _velocity;
 
-        public GameObject(Vector2f spawnPosition, float radius, Color color)
+        public GameObject()
         {
-            _shape = new CircleShape()
-            {
-                Radius = radius,
-                FillColor = color,
-                Position = spawnPosition,
-            };
+            _shape = new();
 
             _isActive = true;
             _isVisible = true;
