@@ -10,10 +10,10 @@ namespace AgarioGame.Engine
     {
         private GameLoop _gameLoop;
 
-        private List<AgarioController> enemyList;
+        private List<AIController> enemyList;
         private List<Food> foodList;
 
-        private AgarioController _player;
+        private PlayerController _player;
 
         private int _foodCount;
         private int enemyCount;
@@ -54,13 +54,13 @@ namespace AgarioGame.Engine
         }
         private void InitializePlayer()
         {
-            _player = _factory.InstantiatePlayer(false);
+            _player = _factory.InstantiatePlayer();
         }
         private void InitializeEnemyes()
         {
             for (int i = 0; i <= enemyCount; i++)
             {
-                enemyList.Add(_factory.InstantiatePlayer(true));
+                enemyList.Add(_factory.InstantiateEnemy());
             }
         }
         public void Logic()
@@ -71,7 +71,11 @@ namespace AgarioGame.Engine
         {
             int randInt = Mathematics.GetRandomNumber(0,enemyCount - 1);
 
-            (enemyList[randInt].Pawn,_player.Pawn) = (_player.Pawn, enemyList[randInt].Pawn);
+            PlayableObject playerPawn = _player.Pawn;
+
+            _player.SetPawn(enemyList[randInt].Pawn);
+
+            enemyList[randInt].SetPawn(playerPawn);
 
             InputManager.fIsPressed = false;
         }
@@ -88,7 +92,7 @@ namespace AgarioGame.Engine
 
             foreach (Food f in foodList)
             {
-                foreach (AgarioController e in enemyList)
+                foreach (AIController e in enemyList)
                 {
                     if (f.ObjectIn(e.Pawn))
                     {
@@ -98,7 +102,7 @@ namespace AgarioGame.Engine
                 }     
             }
 
-            foreach(AgarioController e in enemyList)
+            foreach(AIController e in enemyList)
             {
                 if (_player.Pawn.ObjectIn(e.Pawn))
                 {

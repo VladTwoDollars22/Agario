@@ -22,7 +22,22 @@ namespace AgarioGame.Game.Factoryes
 
             return food;
         }
-        public AgarioController InstantiatePlayer(bool isBot)
+        public AIController InstantiateEnemy()
+        {
+           PlayableObject enemy;
+
+            enemy = new(_gameLoop);
+
+            enemy.SetPosition(Mathematics.GetRandomPosition(GameConfig.GameFieldSize));
+            enemy.SetRadius(GameConfig.PlayersRadius);
+            enemy.SetColor(GameConfig.PlayerColor);
+
+            AIController controller = new(_gameLoop);
+            controller.SetPawn(enemy);
+
+            return controller;
+        }
+        public PlayerController InstantiatePlayer()
         {
             PlayableObject player;
 
@@ -32,7 +47,8 @@ namespace AgarioGame.Game.Factoryes
             player.SetRadius(GameConfig.PlayersRadius);
             player.SetColor(GameConfig.PlayerColor);
 
-            AgarioController controller = new(isBot, _gameLoop, player);
+            PlayerController controller = new(_gameLoop);
+            controller.SetPawn(player);
 
             return controller;
         }
