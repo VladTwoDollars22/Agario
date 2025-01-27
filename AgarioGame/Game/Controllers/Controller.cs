@@ -1,6 +1,6 @@
 ﻿using AgarioGame.Engine;
 
-namespace AgarioGame.Game.Units
+namespace AgarioGame.Game.Controllers
 {
     public class Controller : IInputHandler
     {
@@ -8,7 +8,7 @@ namespace AgarioGame.Game.Units
 
         private bool _isBot;
 
-        public Controller(bool isBot,GameLoop loop,PlayableObject obj)
+        public Controller(bool isBot, GameLoop loop, PlayableObject obj)
         {
             _isBot = isBot;
 

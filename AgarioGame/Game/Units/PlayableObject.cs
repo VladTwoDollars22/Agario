@@ -1,7 +1,4 @@
 ﻿using AgarioGame.Game;
-using AgarioGame.Game.Units;
-using SFML.System;
-
 namespace AgarioGame.Engine
 {
     public class PlayableObject : GameObject
