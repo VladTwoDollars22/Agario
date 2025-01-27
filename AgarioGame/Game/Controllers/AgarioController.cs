@@ -2,13 +2,13 @@
 
 namespace AgarioGame.Game.Controllers
 {
-    public class Controller : IInputHandler
+    public class AgarioController : IInputHandler
     {
         public PlayableObject Pawn;
 
         private bool _isBot;
 
-        public Controller(bool isBot, GameLoop loop, PlayableObject obj)
+        public AgarioController(bool isBot, GameLoop loop, PlayableObject obj)
         {
             _isBot = isBot;
 

@@ -1,6 +1,6 @@
 ﻿using SFML.Window;
 
-namespace AgarioGame.Engine.Core.Input
+namespace AgarioGame.Engine.Core.Input.KeyBind
 {
     public class KeyBind
     {
@@ -40,7 +40,7 @@ namespace AgarioGame.Engine.Core.Input
             {
                 _onDown.Invoke();
             }
-                
+
         }
     }
 }

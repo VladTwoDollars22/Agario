@@ -1,8 +1,8 @@
-﻿using AgarioGame.Engine.Core.Input;
-using AgarioGame.Game;
+﻿using AgarioGame.Game;
 using AgarioGame.Game.Controllers;
 using AgarioGame.Game.Factoryes;
 using SFML.Window;
+using AgarioGame.Engine.Core.Input.KeyBind;
 
 namespace AgarioGame.Engine
 {
@@ -10,10 +10,10 @@ namespace AgarioGame.Engine
     {
         private GameLoop _gameLoop;
 
-        private List<Controller> enemyList;
+        private List<AgarioController> enemyList;
         private List<Food> foodList;
 
-        private Controller _player;
+        private AgarioController _player;
 
         private int _foodCount;
         private int enemyCount;
@@ -88,7 +88,7 @@ namespace AgarioGame.Engine
 
             foreach (Food f in foodList)
             {
-                foreach (Controller e in enemyList)
+                foreach (AgarioController e in enemyList)
                 {
                     if (f.ObjectIn(e.Pawn))
                     {
@@ -98,7 +98,7 @@ namespace AgarioGame.Engine
                 }     
             }
 
-            foreach(Controller e in enemyList)
+            foreach(AgarioController e in enemyList)
             {
                 if (_player.Pawn.ObjectIn(e.Pawn))
                 {

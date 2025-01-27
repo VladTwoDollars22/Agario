@@ -1,6 +1,6 @@
 ﻿using SFML.Window;
 
-namespace AgarioGame.Engine.Core.Input
+namespace AgarioGame.Engine.Core.Input.KeyBind
 {
     public class KeyBindManager : IUpdatable
     {

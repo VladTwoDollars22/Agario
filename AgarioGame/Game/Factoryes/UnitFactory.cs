@@ -22,7 +22,7 @@ namespace AgarioGame.Game.Factoryes
 
             return food;
         }
-        public Controller InstantiatePlayer(bool isBot)
+        public AgarioController InstantiatePlayer(bool isBot)
         {
             PlayableObject player;
 
@@ -32,7 +32,7 @@ namespace AgarioGame.Game.Factoryes
             player.SetRadius(GameConfig.PlayersRadius);
             player.SetColor(GameConfig.PlayerColor);
 
-            Controller controller = new(isBot, _gameLoop, player);
+            AgarioController controller = new(isBot, _gameLoop, player);
 
             return controller;
         }
