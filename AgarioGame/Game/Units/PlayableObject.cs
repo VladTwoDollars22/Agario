@@ -1,4 +1,5 @@
 ﻿using AgarioGame.Game;
+using AgarioGame.Game.Controllers;
 namespace AgarioGame.Engine
 {
     public class PlayableObject : GameObject

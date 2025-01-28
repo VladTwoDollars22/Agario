@@ -37,7 +37,7 @@ namespace AgarioGame.Game.Factoryes
 
             return controller;
         }
-        public PlayerController InstantiatePlayer()
+        public PlayerController InstantiatePlayer(GameRules rules)
         {
             PlayableObject player;
 
@@ -47,7 +47,7 @@ namespace AgarioGame.Game.Factoryes
             player.SetRadius(GameConfig.PlayersRadius);
             player.SetColor(GameConfig.PlayerColor);
 
-            PlayerController controller = new(_gameLoop);
+            PlayerController controller = new(_gameLoop,rules);
             controller.SetPawn(player);
 
             return controller;

@@ -1,4 +1,4 @@
-﻿using System.Data;
+﻿using SFML.System;
 
 namespace AgarioGame.Game.Controllers
 {
@@ -11,7 +11,7 @@ namespace AgarioGame.Game.Controllers
 
         public override void Update()
         {
-
+            Pawn.SetVelocity(new (0,0));
         }
     }
 }

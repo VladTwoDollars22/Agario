@@ -19,7 +19,6 @@ namespace AgarioGame.Engine
         private int enemyCount;
 
         private UnitFactory _factory;
-        private KeyBindManager _kbManager;
         public GameRules(GameLoop loop)
         {
             _gameLoop = loop;
@@ -31,19 +30,12 @@ namespace AgarioGame.Engine
             foodList = new();
 
             _factory = new(_gameLoop);
-            _kbManager = new(_gameLoop);
         }
         public void Initialisation()
         {
-            InitializekeyBinds();
             InitializeFood();
-            InitializePlayer();
             InitializeEnemyes();
-        }
-        private void InitializekeyBinds()
-        {
-           _kbManager.AddKeyBind("Swap", Keyboard.Key.F);
-           _kbManager.GetKeyBind("Swap").AddOnDownCallback(Swap);
+            InitializePlayer();
         }
         private void InitializeFood()
         {
@@ -54,7 +46,7 @@ namespace AgarioGame.Engine
         }
         private void InitializePlayer()
         {
-            _player = _factory.InstantiatePlayer();
+            _player = _factory.InstantiatePlayer(this);
         }
         private void InitializeEnemyes()
         {
@@ -67,7 +59,7 @@ namespace AgarioGame.Engine
         {
             CheckOccurences();
         }
-        private void Swap()
+        public void Swap()
         {
             int randInt = Mathematics.GetRandomNumber(0,enemyCount - 1);
 
