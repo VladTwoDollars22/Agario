@@ -68,8 +68,6 @@ namespace AgarioGame.Engine
             _player.SetPawn(enemyList[randInt].Pawn);
 
             enemyList[randInt].SetPawn(playerPawn);
-
-            InputManager.fIsPressed = false;
         }
         public void CheckOccurences()
         {

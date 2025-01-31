@@ -28,7 +28,7 @@ namespace AgarioGame.Game.Controllers
 
         public void InputProcess()
         {
-            _velocity = InputManager.GetInput();
+            _velocity = MovementInput.GetInput();
         }
         private void InitializekeyBinds(GameRules rules)
         {

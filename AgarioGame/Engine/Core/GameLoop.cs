@@ -70,7 +70,7 @@ namespace AgarioGame
         {
             _window.DispatchEvents();
 
-            InputManager.UpdateInput();
+            MovementInput.UpdateInput();
             UpdateInput?.Invoke();
         }
         private void Update()
