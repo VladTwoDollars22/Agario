@@ -10,18 +10,14 @@ namespace AgarioGame.Engine
 
         private float baseSpeed;
         public float Mass => mass;
-        public PlayableObject(GameLoop loop) : base()
+        public PlayableObject() : base()
         {
             mass = GameConfig.PlayerMass;
             massFactor = GameConfig.MassFactor;
             massGrowMultiplicator = GameConfig.MassGrowMult;
             baseSpeed = GameConfig.BaseSpeed;
 
-            SetGameField(GameConfig.GameFieldSize);
-
             UpdateSpeed();
-
-            RegisterObject(loop);
         }
         public override void Logic()
         {

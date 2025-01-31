@@ -3,6 +3,7 @@ using AgarioGame.Game.Controllers;
 using AgarioGame.Game.Factoryes;
 using SFML.Window;
 using AgarioGame.Engine.Core.Input.KeyBind;
+using AgarioGame.Engine.Factories;
 
 namespace AgarioGame.Engine
 {
@@ -19,6 +20,7 @@ namespace AgarioGame.Engine
         private int enemyCount;
 
         private UnitFactory _factory;
+        private GameObjectFactory _gameObjFactory;
         public GameRules(GameLoop loop)
         {
             _gameLoop = loop;
@@ -29,7 +31,8 @@ namespace AgarioGame.Engine
             enemyList = new();
             foodList = new();
 
-            _factory = new(_gameLoop);
+            _gameObjFactory = new(_gameLoop);
+            _factory = new(_gameLoop,_gameObjFactory);
         }
         public void Initialisation()
         {

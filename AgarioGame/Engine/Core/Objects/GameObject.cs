@@ -1,31 +1,25 @@
-﻿using System.Numerics;
-using SFML.Graphics;
+﻿using SFML.Graphics;
 using SFML.System;
-using SFML.Window;
 
 namespace AgarioGame.Engine
 {
-    public abstract class GameObject : IUpdatable,IDrawable
+    public class GameObject : IUpdatable,IDrawable
     {
-        private CircleShape _shape;
+        public CircleShape Shape;
 
         private Vector2f _velocity;
         private float _speed;
 
-        private RenderWindow _window;
-
         private bool _isActive;
         private bool _isVisible;
 
+        private RenderWindow _window;
+
         private Vector2f _gameField;
         public Vector2f GetVelocity() => _velocity;
-
         public GameObject()
         {
-            _shape = new();
-
-            _isActive = true;
-            _isVisible = true;
+            Shape = new();
         }
         public void Update()
         {
@@ -35,20 +29,16 @@ namespace AgarioGame.Engine
                 Move();
             }
         }
-        public abstract void Logic();
+        public virtual void Logic()
+        {
+
+        }
         public void Draw()
         {
             if (_isVisible)
             {
-                _window?.Draw(_shape);
+                _window?.Draw(Shape);
             }
-        }
-        public void RegisterObject(GameLoop gameLoop)
-        {
-            SetWindow(gameLoop.Window);
-
-            gameLoop.DrawEvent += Draw;
-            gameLoop.UpdateEvent += Update;
         }
         public void SetVelocity(Vector2f direction)
         {
@@ -63,8 +53,8 @@ namespace AgarioGame.Engine
             if (!_isActive)
                 return;
 
-            Vector2f nextPosition = _shape.Position + _velocity * Time.DeltaTime;
-            float ShapeRadius2 = _shape.Radius * 2;
+            Vector2f nextPosition = Shape.Position + _velocity * Time.DeltaTime;
+            float ShapeRadius2 = Shape.Radius * 2;
 
             if (nextPosition.X < 0)
             {
@@ -88,11 +78,11 @@ namespace AgarioGame.Engine
                 _velocity.Y = 0;
             }
 
-            _shape.Position = nextPosition;
+            Shape.Position = nextPosition;
         }
         public FloatRect GetBounds()
         {
-            return _shape.GetGlobalBounds();
+            return Shape.GetGlobalBounds();
         }
         public bool IsFasedWith(GameObject obj)
         {
@@ -103,7 +93,7 @@ namespace AgarioGame.Engine
         }
         public void SetPosition(Vector2f pos)
         {
-            _shape.Position = pos;
+            Shape.Position = pos;
         }
         public void SetWindow(RenderWindow window)
         {
@@ -124,27 +114,31 @@ namespace AgarioGame.Engine
         }
         public void SetRadius(float newRad)
         {
-            _shape.Radius = newRad;
+            Shape.Radius = newRad;
         }
         public void SetColor(Color newColor)
         {
-            _shape.FillColor = newColor;
+            Shape.FillColor = newColor;
         }
         public bool ObjectIn(GameObject obj)
         {
             if (!_isActive)
                 return false;
 
-            Vector2f centerThis = _shape.Position + new Vector2f(_shape.Radius, _shape.Radius);
-            Vector2f centerOther = obj._shape.Position + new Vector2f(obj._shape.Radius, obj._shape.Radius);
+            Vector2f centerThis = Shape.Position + new Vector2f(Shape.Radius, Shape.Radius);
+            Vector2f centerOther = obj.Shape.Position + new Vector2f(obj.Shape.Radius, obj.Shape.Radius);
 
             float distance = Mathematics.Distance(centerThis, centerOther);
 
-            return distance + _shape.Radius <= obj._shape.Radius;
+            return distance + Shape.Radius <= obj.Shape.Radius;
         }
         public void SetGameField(Vector2f gameField)
         {
             _gameField = gameField;
+        }
+        public GameObject GetObject()
+        {
+            return this;
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Numerics;
 using AgarioGame.Engine;
+using AgarioGame.Engine.Factories;
 using AgarioGame.Game.Controllers;
 using SFML.Graphics;
 
@@ -9,28 +10,35 @@ namespace AgarioGame.Game.Factoryes
     public class UnitFactory
     {
         private GameLoop _gameLoop;
-        public UnitFactory(GameLoop loop)
+
+        private GameObjectFactory _gameObjFactory;
+        public UnitFactory(GameLoop loop,GameObjectFactory factory)
         {
             _gameLoop = loop;
+
+            _gameObjFactory = factory;
         }
         public Food InstantiateFood()
         {
-            Food food = new(_gameLoop);
+            Food food = new();
+            GameObject foodObject = food.GetObject();
 
-            food.SetPosition(Mathematics.GetRandomPosition(GameConfig.GameFieldSize));
-            food.SetRadius(GameConfig.FoodRadius);
+            _gameObjFactory.InstantiateGameObject(foodObject,Mathematics.GetRandomPosition(GameConfig.GameFieldSize),Color.Transparent,GameConfig.FoodRadius);
+            foodObject.SetGameField(GameConfig.GameFieldSize);
+
+            food.SetRandomColor();
 
             return food;
         }
         public AIController InstantiateEnemy()
         {
-           PlayableObject enemy;
+            PlayableObject enemy = new();
+            GameObject enemyObject = enemy.GetObject();
 
-            enemy = new(_gameLoop);
+            _gameObjFactory.InstantiateGameObject(enemyObject,Mathematics.GetRandomPosition(GameConfig.GameFieldSize),
+                GameConfig.PlayerColor, GameConfig.PlayersRadius);
 
-            enemy.SetPosition(Mathematics.GetRandomPosition(GameConfig.GameFieldSize));
-            enemy.SetRadius(GameConfig.PlayersRadius);
-            enemy.SetColor(GameConfig.PlayerColor);
+            enemyObject.SetGameField(GameConfig.GameFieldSize);
 
             AIController controller = new(_gameLoop);
             controller.SetPawn(enemy);
@@ -39,13 +47,13 @@ namespace AgarioGame.Game.Factoryes
         }
         public PlayerController InstantiatePlayer(GameRules rules)
         {
-            PlayableObject player;
+            PlayableObject player = new();
+            GameObject playerObject = player.GetObject();
 
-            player = new(_gameLoop);
+            _gameObjFactory.InstantiateGameObject(playerObject,Mathematics.GetRandomPosition(GameConfig.GameFieldSize),
+                GameConfig.PlayerColor, GameConfig.PlayersRadius);
 
-            player.SetPosition(Mathematics.GetRandomPosition(GameConfig.GameFieldSize));
-            player.SetRadius(GameConfig.PlayersRadius);
-            player.SetColor(GameConfig.PlayerColor);
+            playerObject.SetGameField(GameConfig.GameFieldSize);
 
             PlayerController controller = new(_gameLoop,rules);
             controller.SetPawn(player);
