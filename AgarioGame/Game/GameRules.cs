@@ -26,7 +26,7 @@ namespace AgarioGame.Engine
             _gameLoop = loop;
 
             _foodCount = GameConfig.FoodCount;
-            enemyCount = GameConfig.EmenyCount;
+            enemyCount = GameConfig.EnemyCount;
 
             enemyList = new();
             foodList = new();
@@ -36,9 +36,14 @@ namespace AgarioGame.Engine
         }
         public void Initialisation()
         {
+            InitializeConfig();
             InitializeFood();
             InitializeEnemyes();
             InitializePlayer();
+        }
+        private void InitializeConfig()
+        {
+            GameConfig.Initialize();
         }
         private void InitializeFood()
         {
