@@ -22,7 +22,7 @@ namespace AgarioGame
         public RenderWindow Window => _window;
         public GameLoop()
         {
-            _window = new RenderWindow(new VideoMode(1600, 900), "Game window");
+            _window = new RenderWindow(new VideoMode(1920, 1080), "Agario");
 
             _targetFPS = 120;
 

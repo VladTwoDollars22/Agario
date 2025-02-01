@@ -1,6 +1,6 @@
 ﻿using IniParser;
 using IniParser.Model;
-namespace AgarioGame
+namespace AgarioGame.Engine.Core.IniExtensions
 {
     public static class IniLoader
     {
@@ -27,7 +27,7 @@ namespace AgarioGame
                 foreach (var keyData in section.Keys)
                 {
                     Console.WriteLine(2);
-                    _values[keyData.KeyName] = keyData.Value;  
+                    _values[keyData.KeyName] = keyData.Value;
                 }
             }
         }
