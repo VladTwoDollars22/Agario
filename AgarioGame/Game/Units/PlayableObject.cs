@@ -27,7 +27,7 @@ namespace AgarioGame.Engine
         {
             mass += newMass * massGrowMultiplicator;
 
-            SetRadius(mass / 10f);
+            SetRadius(mass / 12.5f);
 
             UpdateSpeed();
         }

@@ -1,9 +1,9 @@
 [Game]
-PlayersRadius=25
+PlayersRadius=16
 PlayerMass=200
-MassFactor=0.5
-MassGrowMult=1
-BaseSpeed=4200
+MassFactor=4.10
+MassGrowMult=0.25
+BaseSpeed=3200
 GameFieldSizeX=1920
 GameFieldSizeY=1080
 
@@ -11,9 +11,9 @@ GameFieldSizeY=1080
 EnemyCount=10
 
 [Food]
-FoodReward=10
-FoodRadius=10
-FoodCount=60
+FoodReward=20
+FoodRadius=5
+FoodCount=150
 
 [Colors]
 PlayerColor=200,200,50
