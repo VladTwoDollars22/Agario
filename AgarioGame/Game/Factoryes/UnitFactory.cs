@@ -20,11 +20,8 @@ namespace AgarioGame.Game.Factoryes
         }
         public Food InstantiateFood()
         {
-            Food food = new();
-            GameObject foodObject = food.GetObject();
-
-            _gameObjFactory.InstantiateGameObject(foodObject,Mathematics.GetRandomPosition(GameConfig.GameFieldSize),Color.Transparent,GameConfig.FoodRadius);
-            foodObject.SetGameField(GameConfig.GameFieldSize);
+            Food food = _gameObjFactory.Instantiate<Food>(Mathematics.GetRandomPosition(GameConfig.GameFieldSize),Color.Transparent,GameConfig.FoodRadius);
+            food.SetGameField(GameConfig.GameFieldSize);
 
             food.SetRandomColor();
 
@@ -32,13 +29,10 @@ namespace AgarioGame.Game.Factoryes
         }
         public AIController InstantiateEnemy()
         {
-            PlayableObject enemy = new();
-            GameObject enemyObject = enemy.GetObject();
-
-            _gameObjFactory.InstantiateGameObject(enemyObject,Mathematics.GetRandomPosition(GameConfig.GameFieldSize),
+            PlayableObject enemy = _gameObjFactory.Instantiate<PlayableObject>(Mathematics.GetRandomPosition(GameConfig.GameFieldSize),
                 GameConfig.PlayerColor, GameConfig.PlayersRadius);
 
-            enemyObject.SetGameField(GameConfig.GameFieldSize);
+            enemy.SetGameField(GameConfig.GameFieldSize);
 
             AIController controller = new(_gameLoop);
             controller.SetPawn(enemy);
@@ -47,13 +41,10 @@ namespace AgarioGame.Game.Factoryes
         }
         public PlayerController InstantiatePlayer(GameRules rules)
         {
-            PlayableObject player = new();
-            GameObject playerObject = player.GetObject();
-
-            _gameObjFactory.InstantiateGameObject(playerObject,Mathematics.GetRandomPosition(GameConfig.GameFieldSize),
+            PlayableObject player =  _gameObjFactory.Instantiate<PlayableObject>(Mathematics.GetRandomPosition(GameConfig.GameFieldSize),
                 GameConfig.PlayerColor, GameConfig.PlayersRadius);
 
-            playerObject.SetGameField(GameConfig.GameFieldSize);
+            player.SetGameField(GameConfig.GameFieldSize);
 
             PlayerController controller = new(_gameLoop,rules);
             controller.SetPawn(player);

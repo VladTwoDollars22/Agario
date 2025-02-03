@@ -136,9 +136,5 @@ namespace AgarioGame.Engine
         {
             _gameField = gameField;
         }
-        public GameObject GetObject()
-        {
-            return this;
-        }
     }
 }

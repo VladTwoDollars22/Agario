@@ -12,8 +12,10 @@ namespace AgarioGame.Engine.Factories
             _gameLoop = gameLoop;
         }
 
-        public GameObject InstantiateGameObject(GameObject obj,Vector2f pos,Color color,float radius)
+        public T Instantiate<T>(Vector2f pos,Color color,float radius) where T:GameObject,new()
         {
+            T obj = new T();
+
             obj.SetPosition(pos);
             obj.SetColor(color);
             obj.SetRadius(radius);

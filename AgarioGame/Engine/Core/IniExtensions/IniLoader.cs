@@ -10,8 +10,6 @@ namespace AgarioGame.Engine.Core.IniExtensions
         {
             _values.Clear();
 
-            Console.WriteLine("Load");
-
             if (!File.Exists(path))
             {
                 Console.WriteLine("Config file not found! Using default values.");
@@ -23,10 +21,8 @@ namespace AgarioGame.Engine.Core.IniExtensions
 
             foreach (var section in data.Sections)
             {
-                Console.WriteLine(1);
                 foreach (var keyData in section.Keys)
                 {
-                    Console.WriteLine(2);
                     _values[keyData.KeyName] = keyData.Value;
                 }
             }
