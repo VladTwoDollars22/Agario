@@ -27,7 +27,6 @@ namespace AgarioGame.Game
 
         public static void Initialize()
         {
-            Console.WriteLine("Initialize");
             IniLoader.Load(IniPath);
 
             PlayersRadius = GetFloat("PlayersRadius", PlayersRadius);
