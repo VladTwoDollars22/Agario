@@ -19,6 +19,7 @@ namespace AgarioGame.Engine
 
         private UnitFactory _factory;
         private GameObjectFactory _gameObjFactory;
+        private ControllerFactory _controllerFactory;
         public GameRules(GameLoop loop)
         {
             _gameLoop = loop;
@@ -27,7 +28,9 @@ namespace AgarioGame.Engine
             foodList = new();
 
             _gameObjFactory = new(_gameLoop);
-            _factory = new(_gameLoop,_gameObjFactory);
+            _controllerFactory = new(_gameLoop);
+
+            _factory = new(_gameObjFactory,_controllerFactory);
         }
         public void Initialisation()
         {

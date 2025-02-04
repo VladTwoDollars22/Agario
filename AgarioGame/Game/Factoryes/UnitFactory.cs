@@ -7,15 +7,12 @@ namespace AgarioGame.Game.Factoryes
 {
     public class UnitFactory
     {
-        private GameLoop _gameLoop;
-
         private GameObjectFactory _gameObjFactory;
         private ControllerFactory _controllerFactory;
-        public UnitFactory(GameLoop loop,GameObjectFactory factory)
+        public UnitFactory(GameObjectFactory gameObjFactory,ControllerFactory ctrlFactory)
         {
-            _gameLoop = loop;
-
-            _gameObjFactory = factory;
+            _gameObjFactory = gameObjFactory;
+            _controllerFactory = ctrlFactory;
         }
         public Food InstantiateFood()
         {

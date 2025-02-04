@@ -7,17 +7,9 @@ namespace AgarioGame.Game.Controllers
     public class AgarioPlayerController : PlayerController
     {
         private Vector2f _velocity;
-        private PlayableObject _pawn;
-
-        public AgarioPlayerController(GameObject pawn)
-        {
-            _pawn = (PlayableObject)pawn;
-            SetPawn(pawn);
-        }
-
         public override void Update()
         {
-            _pawn.SetVelocity(_velocity);
+            Pawn.SetVelocity(_velocity);
         }
 
         public override void InputProcess()
