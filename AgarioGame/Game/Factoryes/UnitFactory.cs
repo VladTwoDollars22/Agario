@@ -1,6 +1,4 @@
-﻿using System;
-using System.Numerics;
-using AgarioGame.Engine;
+﻿using AgarioGame.Engine;
 using AgarioGame.Engine.Factories;
 using AgarioGame.Game.Controllers;
 using SFML.Graphics;
@@ -12,6 +10,7 @@ namespace AgarioGame.Game.Factoryes
         private GameLoop _gameLoop;
 
         private GameObjectFactory _gameObjFactory;
+        private ControllerFactory _controllerFactory;
         public UnitFactory(GameLoop loop,GameObjectFactory factory)
         {
             _gameLoop = loop;
@@ -34,19 +33,18 @@ namespace AgarioGame.Game.Factoryes
 
             enemy.SetGameField(GameConfig.GameFieldSize);
 
-            AIController controller = new(_gameLoop);
-            controller.SetPawn(enemy);
+            AIController controller = _controllerFactory.InstantiateController<AIController>(enemy);
 
             return controller;
         }
-        public PlayerController InstantiatePlayer(GameRules rules)
+        public AgarioPlayerController InstantiatePlayer(GameRules rules)
         {
             PlayableObject player =  _gameObjFactory.Instantiate<PlayableObject>(Mathematics.GetRandomPosition(GameConfig.GameFieldSize),
                 GameConfig.PlayerColor, GameConfig.PlayersRadius);
 
             player.SetGameField(GameConfig.GameFieldSize);
 
-            PlayerController controller = new(_gameLoop,rules);
+            AgarioPlayerController controller = _controllerFactory.InstantiatePlayerController<AgarioPlayerController>(player);
             controller.SetPawn(player);
 
             return controller;

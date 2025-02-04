@@ -1,6 +1,5 @@
 ﻿using AgarioGame.Game;
 using SFML.Graphics;
-using SFML.System;
 
 namespace AgarioGame.Engine
 {

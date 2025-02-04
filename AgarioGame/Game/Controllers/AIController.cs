@@ -1,17 +1,22 @@
-﻿using SFML.System;
+﻿using AgarioGame.Engine;
+using AgarioGame.Engine.Core.Input.Conrollers;
+using SFML.System;
 
 namespace AgarioGame.Game.Controllers
 {
-    public class AIController : BaseController
+    public class AIController : Controller
     {
-        public AIController(GameLoop loop) : base(loop)
-        {
+        public PlayableObject Pawn;
 
+        public AIController(GameObject pawn)
+        {
+            Pawn = (PlayableObject)pawn;
+            SetPawn(pawn);
         }
 
         public override void Update()
         {
-            Pawn.SetVelocity(new (0,0));
+            Pawn.SetVelocity(new Vector2f(0, 0));
         }
     }
 }

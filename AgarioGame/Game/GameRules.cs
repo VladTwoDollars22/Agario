@@ -1,8 +1,6 @@
 ﻿using AgarioGame.Game;
 using AgarioGame.Game.Controllers;
 using AgarioGame.Game.Factoryes;
-using SFML.Window;
-using AgarioGame.Engine.Core.Input.KeyBind;
 using AgarioGame.Engine.Factories;
 
 namespace AgarioGame.Engine
@@ -14,7 +12,7 @@ namespace AgarioGame.Engine
         private List<AIController> enemyList;
         private List<Food> foodList;
 
-        private PlayerController _player;
+        private AgarioPlayerController _player;
 
         private int _foodCount;
         private int enemyCount;
