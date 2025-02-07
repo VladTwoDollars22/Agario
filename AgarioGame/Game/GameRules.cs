@@ -2,6 +2,7 @@
 using AgarioGame.Game.Controllers;
 using AgarioGame.Game.Factoryes;
 using AgarioGame.Engine.Factories;
+using AgarioGame.Game.AudioExtensions;
 
 namespace AgarioGame.Engine
 {
@@ -34,10 +35,17 @@ namespace AgarioGame.Engine
         }
         public void Initialisation()
         {
+            InitializeAudio();
             InitializeConfig();
             InitializeFood();
             InitializeEnemyes();
             InitializePlayer();
+        }
+        private void InitializeAudio()
+        {
+            AudioSystem.InitializeAudio();
+
+            AudioSystem.PlaySound("gamestarted");
         }
         private void InitializeConfig()
         {

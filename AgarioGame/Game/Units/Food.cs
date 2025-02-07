@@ -1,4 +1,5 @@
 ﻿using AgarioGame.Game;
+using AgarioGame.Game.AudioExtensions;
 using SFML.Graphics;
 
 namespace AgarioGame.Engine
@@ -26,6 +27,7 @@ namespace AgarioGame.Engine
         }
         public void EatMe()
         {
+            AudioSystem.PlaySound("eating");
             _isEaten = true;
             SetVisiblity(false);
         }

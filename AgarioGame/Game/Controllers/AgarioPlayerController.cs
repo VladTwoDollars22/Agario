@@ -1,5 +1,6 @@
 ﻿using AgarioGame.Engine;
 using AgarioGame.Engine.Conrollers;
+using AgarioGame.Game.AudioExtensions;
 using SFML.System;
 
 namespace AgarioGame.Game.Controllers
@@ -15,9 +16,20 @@ namespace AgarioGame.Game.Controllers
         }
         public override void Update()
         {
+            AudioProcess();
             Pawn.SetVelocity(_velocity);
         }
-
+        private void AudioProcess()
+        {
+            if (_velocity == new Vector2f(0, 0))
+            {
+                return;
+            }
+            else
+            {
+                AudioSystem.PlaySound("moving");
+            }
+        }
         public override void InputProcess()
         {
             _velocity = MovementInput.GetInput();

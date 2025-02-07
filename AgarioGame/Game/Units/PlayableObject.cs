@@ -1,5 +1,5 @@
 ﻿using AgarioGame.Game;
-using AgarioGame.Game.Controllers;
+using AgarioGame.Game.AudioExtensions;
 namespace AgarioGame.Engine
 {
     public class PlayableObject : GameObject
@@ -39,6 +39,7 @@ namespace AgarioGame.Engine
         }
         public void EatMe()
         {
+            AudioSystem.PlaySound("eating");
             Destroy();
         }
     }
