@@ -1,5 +1,5 @@
 ﻿using AgarioGame.Engine;
-using AgarioGame.Engine.Core.Input.Conrollers;
+using AgarioGame.Engine.Conrollers;
 using SFML.System;
 
 namespace AgarioGame.Game.Controllers

@@ -1,7 +1,7 @@
 ﻿using AgarioGame.Engine.Core.Input.KeyBind;
 using AgarioGame.Engine;
-using AgarioGame.Engine.Core.Input.Conrollers;
 using AgarioGame;
+using AgarioGame.Engine.Conrollers;
 
 public class PlayerController : Controller, IInputHandler
 {

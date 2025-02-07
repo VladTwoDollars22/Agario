@@ -26,60 +26,18 @@ namespace AgarioGame.Game
         {
             IniLoader.Load(PathUtilite.CalculatePath(IniName));
 
-            PlayersRadius = GetFloat("PlayersRadius", PlayersRadius);
-            PlayerMass = GetFloat("PlayerMass", PlayerMass);
-            MassFactor = GetFloat("MassFactor", MassFactor);
-            MassGrowMult = GetFloat("MassGrowMult", MassGrowMult);
-            BaseSpeed = GetFloat("BaseSpeed", BaseSpeed);
-            GameFieldSize = GetVector2f("GameFieldSizeX", "GameFieldSizeY", GameFieldSize);
-            FoodReward = GetFloat("FoodReward", FoodReward);
-            FoodRadius = GetFloat("FoodRadius", FoodRadius);
-            FoodCount = GetInt("FoodCount", FoodCount);
-            EnemyCount = GetInt("EnemyCount", EnemyCount);
-            PlayerColor = GetColor("PlayerColor", PlayerColor);
-            FoodColors = GetColorList("FoodColors", FoodColors);
-        }
-
-        private static float GetFloat(string key, float defaultValue)
-        {
-            string value = IniLoader.GetString(key);
-            return float.TryParse(value, out float result) ? result : defaultValue;
-        }
-
-        private static int GetInt(string key, int defaultValue)
-        {
-            string value = IniLoader.GetString(key);
-            return int.TryParse(value, out int result) ? result : defaultValue;
-        }
-
-        private static Vector2f GetVector2f(string keyX, string keyY, Vector2f defaultValue)
-        {
-            float x = GetFloat(keyX, defaultValue.X);
-            float y = GetFloat(keyY, defaultValue.Y);
-            return new Vector2f(x, y);
-        }
-
-        private static Color GetColor(string key, Color defaultValue)
-        {
-            string value = IniLoader.GetString(key);
-            if (string.IsNullOrEmpty(value)) return defaultValue;
-
-            var parts = value.Split(',').Select(p => byte.TryParse(p, out byte b) ? b : (byte)0).ToArray();
-            return parts.Length == 3 ? new Color(parts[0], parts[1], parts[2]) : defaultValue;
-        }
-
-        private static List<Color> GetColorList(string key, List<Color> defaultValue)
-        {
-            string value = IniLoader.GetString(key);
-            if (string.IsNullOrEmpty(value)) return defaultValue;
-
-            return value.Split(';').Select(ParseColor).ToList();
-        }
-
-        private static Color ParseColor(string colorString)
-        {
-            var parts = colorString.Split(',').Select(byte.Parse).ToArray();
-            return new Color(parts[0], parts[1], parts[2]);
+            PlayersRadius = IniParserUtil.GetFloat("PlayersRadius", PlayersRadius);
+            PlayerMass = IniParserUtil.GetFloat("PlayerMass", PlayerMass);
+            MassFactor = IniParserUtil.GetFloat("MassFactor", MassFactor);
+            MassGrowMult = IniParserUtil.GetFloat("MassGrowMult", MassGrowMult);
+            BaseSpeed = IniParserUtil.GetFloat("BaseSpeed", BaseSpeed);
+            GameFieldSize = IniParserUtil.GetVector2f("GameFieldSizeX", "GameFieldSizeY", GameFieldSize);
+            FoodReward = IniParserUtil.GetFloat("FoodReward", FoodReward);
+            FoodRadius = IniParserUtil.GetFloat("FoodRadius", FoodRadius);
+            FoodCount = IniParserUtil.GetInt("FoodCount", FoodCount);
+            EnemyCount = IniParserUtil.GetInt("EnemyCount", EnemyCount);
+            PlayerColor = IniParserUtil.GetColor("PlayerColor", PlayerColor);
+            FoodColors = IniParserUtil.GetColorList("FoodColors", FoodColors);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace AgarioGame.Engine.Core.Input.Conrollers
+﻿namespace AgarioGame.Engine.Conrollers
 {
     public class Controller : IUpdatable
     {
