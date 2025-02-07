@@ -1,4 +1,5 @@
 ﻿using AgarioGame.Engine.Core.IniExtensions;
+using AgarioGame.Engine.Utilities;
 using SFML.Graphics;
 using SFML.System;
 
@@ -6,7 +7,7 @@ namespace AgarioGame.Game
 {
     public static class GameConfig
     {
-        private static string IniPath = "E:\\GitHub\\Agario\\AgarioGame\\Game\\IniFiles\\GameConfigurations.txt";
+        private static string IniName = "GameConfigurations.txt";
 
         public static float PlayersRadius { get; private set; } = 20f;
         public static float PlayerMass { get; private set; } = 200;
@@ -23,7 +24,7 @@ namespace AgarioGame.Game
 
         public static void Initialize()
         {
-            IniLoader.Load(IniPath);
+            IniLoader.Load(PathUtilite.CalculatePath(IniName));
 
             PlayersRadius = GetFloat("PlayersRadius", PlayersRadius);
             PlayerMass = GetFloat("PlayerMass", PlayerMass);

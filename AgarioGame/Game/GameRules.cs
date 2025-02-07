@@ -72,7 +72,7 @@ namespace AgarioGame.Engine
         {
             int randInt = Mathematics.GetRandomNumber(0,enemyCount - 1);
 
-            PlayableObject playerPawn = _player.Pawn;
+            PlayableObject playerPawn = _player.PPawn;
 
             _player.SetPawn(enemyList[randInt].Pawn);
 
@@ -85,7 +85,7 @@ namespace AgarioGame.Engine
                 if (f.ObjectIn(_player.Pawn))
                 {
                     f.EatMe();
-                    _player.Pawn.Upgrade(f.Reward);
+                    _player.PPawn.Upgrade(f.Reward);
                 }
             }
 
@@ -96,7 +96,7 @@ namespace AgarioGame.Engine
                     if (f.ObjectIn(e.Pawn))
                     {
                         f.EatMe();
-                        e.Pawn.Upgrade(f.Reward);
+                        e.PPawn.Upgrade(f.Reward);
                     }
                 }     
             }
@@ -105,13 +105,13 @@ namespace AgarioGame.Engine
             {
                 if (_player.Pawn.ObjectIn(e.Pawn))
                 {
-                    _player.Pawn.EatMe();
-                    e.Pawn.Upgrade(_player.Pawn.Mass);
+                    _player.PPawn.EatMe();
+                    e.PPawn.Upgrade(_player.PPawn.Mass);
                 }
                 else if (e.Pawn.ObjectIn(_player.Pawn))
                 {
-                    e.Pawn.EatMe();
-                    _player.Pawn.Upgrade(e.Pawn.Mass);
+                    e.PPawn.EatMe();
+                    _player.PPawn.Upgrade(e.PPawn.Mass);
                 }
             }
         }
