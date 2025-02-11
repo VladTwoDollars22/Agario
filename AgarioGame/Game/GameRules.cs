@@ -36,7 +36,7 @@ namespace AgarioGame.Engine
         public void Initialisation()
         {
             InitializeAudio();
-            InitializeConfig();
+            InitializeConfigs();
             InitializeFood();
             InitializeEnemyes();
             InitializePlayer();
@@ -47,12 +47,14 @@ namespace AgarioGame.Engine
 
             AudioSystem.PlaySound("gamestarted");
         }
-        private void InitializeConfig()
+        private void InitializeConfigs()
         {
             GameConfig.Initialize();
 
             _foodCount = GameConfig.FoodCount;
             enemyCount = GameConfig.EnemyCount;
+
+            AudioConfig.Initialize();
         }
         private void InitializeFood()
         {
