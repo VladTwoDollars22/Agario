@@ -1,0 +1,3 @@
+EatingPath=eating.mp3
+MovingPath=moving.mp3
+GameStartedPath=gamestarted.mp3

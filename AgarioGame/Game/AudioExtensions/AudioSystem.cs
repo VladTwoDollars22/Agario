@@ -13,9 +13,9 @@ namespace AgarioGame.Game.AudioExtensions
         {
             sounds = new Dictionary<string, Sound>
             {
-                { "eating", GetSound("eating.mp3") },
-                { "moving", GetSound("moving.mp3") },
-                { "gamestarted", GetSound("gamestarted.mp3") },
+                { "eating", GetSound(AudioConfig.EatingClipPath) },
+                { "moving", GetSound(AudioConfig.MovingClipPath) },
+                { "gamestarted", GetSound(AudioConfig.GameStartedClipPath) },
             };
         }
         private static Sound GetSound(string fileName)

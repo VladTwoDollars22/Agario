@@ -16,7 +16,17 @@ namespace AgarioGame.Engine.Core.IniExtensions
             string value = IniLoader.GetString(key);
             return int.TryParse(value, out int result) ? result : defaultValue;
         }
+        public static string GetString(string key,string defaultValue)
+        {
+            string value = IniLoader.GetString(key);
 
+            if(string.IsNullOrEmpty(value))
+            {
+                return defaultValue;
+            }
+
+            return value;
+        }
         public static Vector2f GetVector2f(string keyX, string keyY, Vector2f defaultValue)
         {
             float x = GetFloat(keyX, defaultValue.X);
