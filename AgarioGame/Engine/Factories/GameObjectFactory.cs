@@ -1,5 +1,7 @@
-﻿using SFML.Graphics;
+﻿using System.Resources;
+using SFML.Graphics;
 using SFML.System;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace AgarioGame.Engine.Factories
 {
@@ -12,18 +14,19 @@ namespace AgarioGame.Engine.Factories
             _gameLoop = gameLoop;
         }
 
-        public T Instantiate<T>(Vector2f pos,Color color,float radius) where T : GameObject,new()
+        public T Instantiate<T>(Vector2f pos,Color color,Vector2f size,Texture texture) where T : GameObject,new()
         {
             T obj = new T();
 
             obj.SetPosition(pos);
+            obj.SetTexture(texture);
             obj.SetColor(color);
-            obj.SetRadius(radius);
+            obj.SetSize(size);
 
             RegisterObject(obj);
 
             obj.SetActive(true);
-            obj.SetVisiblity(true);
+            obj.SetVisibility(true);
 
             obj.SetWindow(_gameLoop.Window);
 

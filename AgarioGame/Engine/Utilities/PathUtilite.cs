@@ -25,7 +25,7 @@ namespace AgarioGame.Engine.Utilities
                 return string.Empty;
             }
 
-            return currentPath;
+            return currentPath;       
         }
     }
 }

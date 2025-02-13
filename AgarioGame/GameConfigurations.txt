@@ -1,5 +1,6 @@
 [Game]
-PlayersRadius=16
+PlayerSizeX=0.02
+PlayerSizeY=0.02
 PlayerMass=200
 MassFactor=4.10
 MassGrowMult=0.25
@@ -12,7 +13,8 @@ EnemyCount=10
 
 [Food]
 FoodReward=20
-FoodRadius=5
+FoodSizeX=0.01
+FoodSizeY=0.01
 FoodCount=150
 
 [Colors]

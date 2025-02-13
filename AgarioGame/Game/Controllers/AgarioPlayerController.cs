@@ -1,5 +1,6 @@
 ﻿using AgarioGame.Engine;
 using AgarioGame.Engine.Conrollers;
+using AgarioGame.Engine.Core.Input.KeyBind;
 using AgarioGame.Game.AudioExtensions;
 using SFML.System;
 
@@ -37,7 +38,7 @@ namespace AgarioGame.Game.Controllers
 
         public override void InitializekeyBinds()
         {
-            
+
         }
     }
 }

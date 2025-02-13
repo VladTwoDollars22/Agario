@@ -16,7 +16,7 @@ namespace AgarioGame.Game.Factoryes
         }
         public Food InstantiateFood()
         {
-            Food food = _gameObjFactory.Instantiate<Food>(Mathematics.GetRandomPosition(GameConfig.GameFieldSize),Color.Transparent,GameConfig.FoodRadius);
+            Food food = _gameObjFactory.Instantiate<Food>(Mathematics.GetRandomPosition(GameConfig.GameFieldSize),Color.Transparent,GameConfig.FoodSize,new(GameConfig.CircleTexturePath));
             food.SetGameField(GameConfig.GameFieldSize);
 
             food.SetRandomColor();
@@ -26,7 +26,7 @@ namespace AgarioGame.Game.Factoryes
         public AIController InstantiateEnemy()
         {
             PlayableObject enemy = _gameObjFactory.Instantiate<PlayableObject>(Mathematics.GetRandomPosition(GameConfig.GameFieldSize),
-                GameConfig.PlayerColor, GameConfig.PlayersRadius);
+                GameConfig.PlayerColor, GameConfig.PlayerSize, new(GameConfig.CircleTexturePath));
 
             enemy.SetGameField(GameConfig.GameFieldSize);
 
@@ -37,7 +37,7 @@ namespace AgarioGame.Game.Factoryes
         public AgarioPlayerController InstantiatePlayer(GameRules rules)
         {
             PlayableObject player =  _gameObjFactory.Instantiate<PlayableObject>(Mathematics.GetRandomPosition(GameConfig.GameFieldSize),
-                GameConfig.PlayerColor, GameConfig.PlayersRadius);
+                GameConfig.PlayerColor, GameConfig.PlayerSize, new(GameConfig.CircleTexturePath));
 
             player.SetGameField(GameConfig.GameFieldSize);
 

@@ -3,9 +3,9 @@ using SFML.System;
 
 namespace AgarioGame.Engine
 {
-    public class GameObject : IUpdatable,IDrawable
+    public class GameObject : IUpdatable, IDrawable
     {
-        public CircleShape Shape;
+        public Sprite Sprite { get; private set; }
 
         private Vector2f _velocity;
         private float _speed;
@@ -14,13 +14,15 @@ namespace AgarioGame.Engine
         private bool _isVisible;
 
         private RenderWindow _window;
-
         private Vector2f _gameField;
+
         public Vector2f GetVelocity() => _velocity;
+
         public GameObject()
         {
-            Shape = new();
+            Sprite = new Sprite();
         }
+
         public void Update()
         {
             if (_isActive)
@@ -29,109 +31,127 @@ namespace AgarioGame.Engine
                 Move();
             }
         }
-        public virtual void Logic()
-        {
 
-        }
+        public virtual void Logic() { }
+
         public void Draw()
         {
             if (_isVisible)
             {
-                _window?.Draw(Shape);
+                _window?.Draw(Sprite);
             }
         }
+
         public void SetVelocity(Vector2f direction)
         {
             _velocity = Mathematics.Normalize(direction) * _speed;
         }
+
         public void SetSpeed(float speed)
         {
-            _speed = speed; 
+            _speed = speed;
+        }
+        public void SetSize(Vector2f newSize)
+        {
+            Sprite.Scale = newSize;
+        }
+        public void SetTexture(Texture texture)
+        {
+            Sprite.Texture = texture;
         }
         public void Move()
         {
             if (!_isActive)
                 return;
 
-            Vector2f nextPosition = Shape.Position + _velocity * Time.DeltaTime;
-            float ShapeRadius2 = Shape.Radius * 2;
+            Vector2f nextPosition = Sprite.Position + _velocity * Time.DeltaTime;
+            FloatRect bounds = Sprite.GetGlobalBounds();
 
             if (nextPosition.X < 0)
             {
                 nextPosition.X = 0;
                 _velocity.X = 0;
             }
-            else if (nextPosition.X + ShapeRadius2 > _gameField.X)
+            else if (nextPosition.X + bounds.Width > _gameField.X)
             {
-                nextPosition.X = _gameField.X - ShapeRadius2;
+                nextPosition.X = _gameField.X - bounds.Width;
                 _velocity.X = 0;
             }
 
             if (nextPosition.Y < 0)
             {
                 nextPosition.Y = 0;
-                _velocity.Y = 0; 
+                _velocity.Y = 0;
             }
-            else if (nextPosition.Y + ShapeRadius2 > _gameField.Y)
+            else if (nextPosition.Y + bounds.Height > _gameField.Y)
             {
-                nextPosition.Y = _gameField.Y - ShapeRadius2;
+                nextPosition.Y = _gameField.Y - bounds.Height;
                 _velocity.Y = 0;
             }
 
-            Shape.Position = nextPosition;
+            Sprite.Position = nextPosition;
         }
+
         public FloatRect GetBounds()
         {
-            return Shape.GetGlobalBounds();
+            return Sprite.GetGlobalBounds();
         }
+
         public bool IsFasedWith(GameObject obj)
         {
-            FloatRect spriteBounds = GetBounds();
-            FloatRect facedObjBounds = obj.GetBounds();
-
-            return spriteBounds.Intersects(facedObjBounds);
+            return GetBounds().Intersects(obj.GetBounds());
         }
+
         public void SetPosition(Vector2f pos)
         {
-            Shape.Position = pos;
+            Sprite.Position = pos;
         }
+
         public void SetWindow(RenderWindow window)
         {
             _window = window;
         }
+
         public void Destroy()
         {
-            SetVisiblity(false);
+            SetVisibility(false);
             SetActive(false);
         }
-        public void SetVisiblity(bool isVisible)
+
+        public void SetVisibility(bool isVisible)
         {
             _isVisible = isVisible;
         }
+
         public void SetActive(bool isActive)
         {
             _isActive = isActive;
         }
-        public void SetRadius(float newRad)
-        {
-            Shape.Radius = newRad;
-        }
+
         public void SetColor(Color newColor)
         {
-            Shape.FillColor = newColor;
+            Sprite.Color = newColor;
         }
+
         public bool ObjectIn(GameObject obj)
         {
-            if (!_isActive)
+            if (!_isActive || !obj._isActive)
                 return false;
 
-            Vector2f centerThis = Shape.Position + new Vector2f(Shape.Radius, Shape.Radius);
-            Vector2f centerOther = obj.Shape.Position + new Vector2f(obj.Shape.Radius, obj.Shape.Radius);
+            FloatRect thisBounds = GetBounds();
+            FloatRect objBounds = obj.GetBounds();
 
-            float distance = Mathematics.Distance(centerThis, centerOther);
+            
+            bool isInside =
+                thisBounds.Left >= objBounds.Left &&
+                thisBounds.Top >= objBounds.Top &&
+                thisBounds.Left + thisBounds.Width <= objBounds.Left + objBounds.Width &&
+                thisBounds.Top + thisBounds.Height <= objBounds.Top + objBounds.Height;
 
-            return distance + Shape.Radius <= obj.Shape.Radius;
+            return isInside;
         }
+
+
         public void SetGameField(Vector2f gameField)
         {
             _gameField = gameField;

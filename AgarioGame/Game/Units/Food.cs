@@ -29,7 +29,7 @@ namespace AgarioGame.Engine
         {
             AudioSystem.PlaySound("eating");
             _isEaten = true;
-            SetVisiblity(false);
+            SetVisibility(false);
         }
         private void Respawn()
         {
@@ -38,7 +38,7 @@ namespace AgarioGame.Engine
             _isEaten = false;
 
             SetRandomColor();
-            SetVisiblity(true);
+            SetVisibility(true);
         }
         public void SetRandomColor()
         {

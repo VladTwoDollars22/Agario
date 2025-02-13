@@ -3,6 +3,7 @@ using AgarioGame.Game.Controllers;
 using AgarioGame.Game.Factoryes;
 using AgarioGame.Engine.Factories;
 using AgarioGame.Game.AudioExtensions;
+using AgarioGame.Engine.Core.Input.KeyBind;
 
 namespace AgarioGame.Engine
 {
@@ -11,6 +12,7 @@ namespace AgarioGame.Engine
         private GameLoop _gameLoop;
 
         private List<AIController> enemyList;
+
         private List<Food> foodList;
 
         private AgarioPlayerController _player;
@@ -21,6 +23,7 @@ namespace AgarioGame.Engine
         private UnitFactory _factory;
         private GameObjectFactory _gameObjFactory;
         private ControllerFactory _controllerFactory;
+        private KeyBindManager _keyBindManager;
         public GameRules(GameLoop loop)
         {
             _gameLoop = loop;
@@ -30,13 +33,14 @@ namespace AgarioGame.Engine
 
             _gameObjFactory = new(_gameLoop);
             _controllerFactory = new(_gameLoop);
+            _keyBindManager = new(_gameLoop);
 
             _factory = new(_gameObjFactory,_controllerFactory);
         }
         public void Initialisation()
         {
-            InitializeAudio();
             InitializeConfigs();
+            InitializeAudio();
             InitializeFood();
             InitializeEnemyes();
             InitializePlayer();
