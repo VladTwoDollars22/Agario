@@ -40,11 +40,11 @@ namespace AgarioGame
             while (_window.IsOpen)
             {
                 long currentTime = clock.ElapsedTime.AsMilliseconds();
-                Engine.Time.SetDeltaTime((currentTime - lastFrameTime) / 1000f);
+                Engine.Core.Time.Time.SetDeltaTime((currentTime - lastFrameTime) / 1000f);
 
                 InputProcess();
 
-                if (Engine.Time.DeltaTime  > _updateTrigger)
+                if (Engine.Core.Time.Time.DeltaTime  > _updateTrigger)
                 {
                     lastFrameTime = currentTime;
 

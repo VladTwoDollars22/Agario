@@ -1,4 +1,4 @@
-﻿namespace AgarioGame.Engine
+﻿namespace AgarioGame.Engine.Core.Time
 {
     public static class Time
     {

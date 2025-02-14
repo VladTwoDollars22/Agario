@@ -1,4 +1,5 @@
-﻿using SFML.Graphics;
+﻿using AgarioGame.Engine.Core.Time;
+using SFML.Graphics;
 using SFML.System;
 
 namespace AgarioGame.Engine
@@ -64,7 +65,7 @@ namespace AgarioGame.Engine
             if (!_isActive)
                 return;
 
-            Vector2f nextPosition = Sprite.Position + _velocity * Time.DeltaTime;
+            Vector2f nextPosition = Sprite.Position + _velocity * AgarioGame.Engine.Core.Time.Time.DeltaTime;
             FloatRect bounds = Sprite.GetGlobalBounds();
 
             if (nextPosition.X < 0)

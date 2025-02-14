@@ -1,6 +1,5 @@
 ﻿using AgarioGame.Engine.Utilities;
 using SFML.Audio;
-using System.Collections.Generic;
 
 namespace AgarioGame.Game.AudioExtensions
 {
