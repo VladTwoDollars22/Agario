@@ -2,7 +2,7 @@
 {
     public class TimerManager : IUpdatable
     {
-        public static TimerManager Instance;
+        public static TimerManager Instance = new();
         private class Timer
         {
             public Action Action;
