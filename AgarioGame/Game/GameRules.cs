@@ -34,7 +34,6 @@ namespace AgarioGame.Engine
             _gameObjFactory = new(_gameLoop);
             _controllerFactory = new(_gameLoop);
             _keyBindManager = new(_gameLoop);
-            _timer = new();
 
             _factory = new(_gameObjFactory,_controllerFactory);
         }

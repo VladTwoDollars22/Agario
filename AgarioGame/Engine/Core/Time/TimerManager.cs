@@ -2,19 +2,43 @@
 {
     public class TimerManager : IUpdatable
     {
+        public static TimerManager Instance;
         private class Timer
         {
-            public Action Action { get; }
-            public float RemainingTime { get; set; }
-            public bool IsRepeating { get; }
-            public float Interval { get; }
+            public Action Action;
+            public float RemainingTime;
+            public bool IsRepeating;
+            public float Interval;
+            public int RepeatCount;
 
-            public Timer(Action action, float time, bool repeating)
+            public Timer(Action action, float time, bool repeating, int repeatCount = -1)
             {
                 Action = action;
                 RemainingTime = time;
                 IsRepeating = repeating;
                 Interval = time;
+                RepeatCount = repeatCount;
+            }
+
+            public bool Tick(float deltaTime)
+            {
+                RemainingTime -= deltaTime;
+                if (RemainingTime > 0) return false; 
+
+                Action.Invoke();
+
+                if (IsRepeating)
+                {
+                    if (RepeatCount > 0)
+                    {
+                        RepeatCount--;
+                        if (RepeatCount == 0) return true;
+                    }
+                    RemainingTime = Interval;
+                    return false;
+                }
+
+                return true;
             }
         }
 
@@ -35,6 +59,15 @@
             namedIntervals[name] = timer;
             timers.Add(timer);
         }
+        public void SetRepeatedInterval(string name, Action action, float interval, int repeatCount)
+        {
+            if (namedIntervals.ContainsKey(name))
+                return;
+
+            var timer = new Timer(action, interval, true, repeatCount);
+            namedIntervals[name] = timer;
+            timers.Add(timer);
+        }
 
         public void StopInterval(string name)
         {
@@ -49,27 +82,16 @@
         {
             for (int i = timers.Count - 1; i >= 0; i--)
             {
-                var timer = timers[i];
-                timer.RemainingTime -= Time.DeltaTime;
-
-                if (timer.RemainingTime <= 0)
+                if (timers[i].Tick(Time.DeltaTime))
                 {
-                    timer.Action.Invoke();
-
-                    if (timer.IsRepeating)
-                    {
-                        timer.RemainingTime = timer.Interval;
-                    }
-                    else
-                    {
-                        timers.RemoveAt(i);
-                    }
+                    timers.RemoveAt(i);
                 }
             }
         }
         public void RegisterManager(GameLoop loop)
         {
             loop.UpdateEvent += Update;
+            Instance = this;
         }
     }
 }
