@@ -23,6 +23,29 @@ namespace AgarioGame.Engine.Animation
 
             _transitions.Add(state, transitions);
         }
+        public void AddConditionToTransition(string from, string to, Func<bool> condition)
+        {
+            State fromState = GetStateByName(from);
+            State toState = GetStateByName(to);
+
+            if (fromState != null && toState != null && _transitions.ContainsKey(fromState))
+            {
+                var transition = _transitions[fromState].FirstOrDefault(t => t.TargetState == toState);
+
+                if (transition != null)
+                {
+                    transition.AddCondition(condition);
+                }
+                else
+                {
+                    Console.WriteLine($"Не знайдено переходу з {from} до {to}.");
+                }
+            }
+            else
+            {
+                Console.WriteLine($"Стан {from} або {to} не мають переходу.");
+            }
+        }
         public void AddTransition(string from, string to)
         {
             State stateFrom = null;
@@ -41,11 +64,14 @@ namespace AgarioGame.Engine.Animation
                     stateTo = state;
                 }
             }
-
             if (stateFrom != null && stateTo != null)
             {
                 _transitions[stateFrom].Add(new Transition(stateTo));
             }
+        }
+        private State GetStateByName(string name)
+        {
+            return _transitions.Keys.FirstOrDefault(state => state.Name == name);
         }
     }
 }
