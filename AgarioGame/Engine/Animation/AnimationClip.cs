@@ -3,7 +3,7 @@ using SFML.Graphics;
 
 namespace AgarioGame.Engine.Animation
 {
-    public class Animation
+    public class AnimationClip
     {
         public string AnimationName;
 
@@ -12,7 +12,7 @@ namespace AgarioGame.Engine.Animation
         private Texture[] _frames;
         private Sprite _animableSprite;
 
-        public Animation(string animName,Sprite sprite)
+        public AnimationClip(string animName,Sprite sprite)
         {
             _animableSprite = sprite;
             AnimationName = animName;
@@ -34,6 +34,10 @@ namespace AgarioGame.Engine.Animation
         public void Stop()
         {
             TimerManager.Instance.StopInterval(AnimationName);
+        }
+        public void Reset()
+        {
+            _currentFrame = 0;
         }
         private void NextFrame()
         {

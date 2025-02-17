@@ -4,6 +4,7 @@ using AgarioGame.Game.Factoryes;
 using AgarioGame.Engine.Factories;
 using AgarioGame.Game.AudioExtensions;
 using AgarioGame.Engine.Core.Input.KeyBind;
+using AgarioGame.Engine.Core.Time;
 
 namespace AgarioGame.Engine
 {
@@ -39,11 +40,16 @@ namespace AgarioGame.Engine
         }
         public void Initialisation()
         {
+            InitializeTimer();
             InitializeConfigs();
             InitializeAudio();
             InitializeFood();
             InitializeEnemyes();
             InitializePlayer();
+        }
+        private void InitializeTimer()
+        {
+            TimerManager.Instance.RegisterManager(_gameLoop);
         }
         private void InitializeAudio()
         {
@@ -80,14 +86,13 @@ namespace AgarioGame.Engine
         }
         public void Logic()
         {
-            _timer.Update();
             CheckOccurences();
         }
         public void Swap()
         {
             int randInt = Mathematics.GetRandomNumber(0,enemyCount - 1);
 
-            PlayableObject playerPawn = _player.PPawn;
+            PlayableObject playerPawn = _player.PlayablePawn;
 
             _player.SetPawn(enemyList[randInt].Pawn);
 
@@ -100,7 +105,7 @@ namespace AgarioGame.Engine
                 if (f.ObjectIn(_player.Pawn))
                 {
                     f.EatMe();
-                    _player.PPawn.Upgrade(f.Reward);
+                    _player.PlayablePawn.Upgrade(f.Reward);
                 }
             }
 
@@ -120,13 +125,13 @@ namespace AgarioGame.Engine
             {
                 if (_player.Pawn.ObjectIn(e.Pawn))
                 {
-                    _player.PPawn.EatMe();
-                    e.PPawn.Upgrade(_player.PPawn.Mass);
+                    _player.PlayablePawn.EatMe();
+                    e.PPawn.Upgrade(_player.PlayablePawn.Mass);
                 }
                 else if (e.Pawn.ObjectIn(_player.Pawn))
                 {
                     e.PPawn.EatMe();
-                    _player.PPawn.Upgrade(e.PPawn.Mass);
+                    _player.PlayablePawn.Upgrade(e.PPawn.Mass);
                 }
             }
         }

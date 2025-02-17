@@ -91,7 +91,6 @@
         public void RegisterManager(GameLoop loop)
         {
             loop.UpdateEvent += Update;
-            Instance = this;
         }
     }
 }
