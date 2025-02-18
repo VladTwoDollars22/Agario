@@ -1,39 +1,48 @@
-﻿using AgarioGame.Game;
+﻿using AgarioGame.Engine.Animation;
+using AgarioGame.Game;
 using AgarioGame.Game.AudioExtensions;
+using AgarioGame.Game.Factoryes;
 namespace AgarioGame.Engine
 {
     public class PlayableObject : GameObject
     {
-        private float mass;
-        private float massFactor;
-        private float massGrowMultiplicator;
+        public Animator Animator;
+        public bool IsEating;
+
+        private float _mass;
+        private float _massFactor;
+        private float _massGrowMultiplicator;
 
         private float baseSpeed;
-        public float Mass => mass;
+        public float Mass => _mass;
         public PlayableObject() : base()
         {
-            mass = GameConfig.PlayerMass;
-            massFactor = GameConfig.MassFactor;
-            massGrowMultiplicator = GameConfig.MassGrowMult;
+            _mass = GameConfig.PlayerMass;
+            _massFactor = GameConfig.MassFactor;
+            _massGrowMultiplicator = GameConfig.MassGrowMult;
             baseSpeed = GameConfig.BaseSpeed;
 
             UpdateSpeed();
+
+            Animator = AnimatorFactory.InitializePlayerAnimator(Sprite);
         }
         public override void Logic()
         {
             
         }
-        public void Upgrade(float newMass)
+        public void Eat(float newMass)
         {
-            mass += newMass * massGrowMultiplicator;
+            IsEating = true;
 
-            SetSize(new(mass / 2000f, mass / 2000f));
+            _mass += newMass * _massGrowMultiplicator;
+
+            SetSize(new(_mass / 2000f, _mass / 2000f));
 
             UpdateSpeed();
         }
         private void UpdateSpeed()
         {
-            float newSpeed = baseSpeed / (float)Math.Sqrt(mass * massFactor);
+            float newSpeed = baseSpeed / (float)Math.Sqrt(_mass * _massFactor);
 
             SetSpeed(newSpeed);
         }

@@ -1,6 +1,6 @@
 ﻿namespace AgarioGame.Engine.Animation
 {
-    public class StateMachine : IUpdatable
+    public class StateMachine
     {
         private State _currentState;
         private Dictionary<State, List<Transition>> _transitions;
@@ -10,7 +10,7 @@
             _currentState = startState;
             _transitions = transitions;
         }
-        public void Update()
+        public void Logic()
         {
             List<Transition> currentTransitions = _transitions[_currentState];
 

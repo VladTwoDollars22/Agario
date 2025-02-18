@@ -1,6 +1,6 @@
 ﻿namespace AgarioGame.Engine
 {
-    interface IUpdatable
+    public interface IUpdatable
     {
         void Update();
     }

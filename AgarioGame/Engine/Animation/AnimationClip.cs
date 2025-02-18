@@ -1,4 +1,5 @@
 ﻿using AgarioGame.Engine.Core.Time;
+using AgarioGame.Engine.Utilities;
 using SFML.Graphics;
 
 namespace AgarioGame.Engine.Animation
@@ -9,7 +10,7 @@ namespace AgarioGame.Engine.Animation
 
         private float _updateTrigger;
         private int _currentFrame;
-        private Texture[] _frames;
+        private List<Texture> _frames;
         private Sprite _animableSprite;
 
         public AnimationClip(string animName,Sprite sprite)
@@ -17,11 +18,9 @@ namespace AgarioGame.Engine.Animation
             _animableSprite = sprite;
             AnimationName = animName;
 
-            _frames = LoadFrames();
-
             _currentFrame = 0;
             _animableSprite.Texture = _frames[_currentFrame];
-            _updateTrigger = 1 / _frames.Length;
+            _updateTrigger = 1 / _frames.Count;
         }
         public void PlayLooped()
         {
@@ -29,7 +28,7 @@ namespace AgarioGame.Engine.Animation
         }
         public void PlayOnce()
         {
-            TimerManager.Instance.SetRepeatedInterval(AnimationName, NextFrame, _updateTrigger, _frames.Length);
+            TimerManager.Instance.SetRepeatedInterval(AnimationName, NextFrame, _updateTrigger, _frames.Count);
         }
         public void Stop()
         {
@@ -39,20 +38,27 @@ namespace AgarioGame.Engine.Animation
         {
             _currentFrame = 0;
         }
+        public List<Texture> LoadFrames(List<string> texturePaths)
+        {
+            List<Texture> framesList = new List<Texture>();
+
+            foreach (var path in texturePaths)
+            {    
+               framesList.Add(new Texture(PathUtilite.CalculatePath(path)));    
+            }
+
+            return framesList;
+        }
         private void NextFrame()
         {
             _currentFrame++;
 
-            if(_currentFrame > _frames.Length)
+            if (_currentFrame > _frames.Count)
             {
                 _currentFrame = 0;
             }
 
             _animableSprite.Texture = _frames[_currentFrame];
-        }
-        private Texture[] LoadFrames()
-        {
-            return new Texture[0];
         }
     }
 }

@@ -105,7 +105,7 @@ namespace AgarioGame.Engine
                 if (f.ObjectIn(_player.Pawn))
                 {
                     f.EatMe();
-                    _player.PlayablePawn.Upgrade(f.Reward);
+                    _player.PlayablePawn.Eat(f.Reward);
                 }
             }
 
@@ -116,7 +116,7 @@ namespace AgarioGame.Engine
                     if (f.ObjectIn(e.Pawn))
                     {
                         f.EatMe();
-                        e.PPawn.Upgrade(f.Reward);
+                        e.PPawn.Eat(f.Reward);
                     }
                 }     
             }
@@ -126,12 +126,12 @@ namespace AgarioGame.Engine
                 if (_player.Pawn.ObjectIn(e.Pawn))
                 {
                     _player.PlayablePawn.EatMe();
-                    e.PPawn.Upgrade(_player.PlayablePawn.Mass);
+                    e.PPawn.Eat(_player.PlayablePawn.Mass);
                 }
                 else if (e.Pawn.ObjectIn(_player.Pawn))
                 {
                     e.PPawn.EatMe();
-                    _player.PlayablePawn.Upgrade(e.PPawn.Mass);
+                    _player.PlayablePawn.Eat(e.PPawn.Mass);
                 }
             }
         }

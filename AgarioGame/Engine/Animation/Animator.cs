@@ -2,7 +2,7 @@
 
 namespace AgarioGame.Engine.Animation
 {
-    public class Animator
+    public class Animator : IUpdatable
     {
         private StateMachine _stateMachine;
         private Sprite _animatedSprite;
@@ -15,6 +15,14 @@ namespace AgarioGame.Engine.Animation
             _transitions = new();
 
             _stateMachine = new(startState,_transitions);
+        }
+        public void Update()
+        {
+            _stateMachine.Logic();
+        }
+        public void SetSprite(Sprite sprite)
+        {
+            _animatedSprite = sprite;
         }
         public void CreateState(string name, AnimationClip clip,StateType type)
         {
