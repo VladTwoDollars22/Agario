@@ -45,6 +45,10 @@
         private List<Timer> timers = new List<Timer>();
         private Dictionary<string, Timer> namedIntervals = new Dictionary<string, Timer>();
 
+        public TimerManager()
+        {
+            Subscriber.SubscribeOnUpdate(this);
+        }
         public void SetTimeout(Action action, float delay)
         {
             timers.Add(new Timer(action, delay, false));
@@ -87,10 +91,6 @@
                     timers.RemoveAt(i);
                 }
             }
-        }
-        public void RegisterManager(GameLoop loop)
-        {
-            loop.UpdateEvent += Update;
         }
     }
 }
