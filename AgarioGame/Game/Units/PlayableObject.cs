@@ -24,11 +24,15 @@ namespace AgarioGame.Engine
 
             UpdateSpeed();
 
-            Animator = AnimatorFactory.InitializePlayerAnimator(Sprite);
+            IsEating = false;
         }
         public override void Logic()
         {
             
+        }
+        public void SetAnimator(Animator newAnimator)
+        {
+            Animator = newAnimator; 
         }
         public void Eat(float newMass)
         {

@@ -19,8 +19,6 @@ namespace AgarioGame.Engine.Animation
             AnimationName = animName;
 
             _currentFrame = 0;
-            _animableSprite.Texture = _frames[_currentFrame];
-            _updateTrigger = 1 / _frames.Count;
         }
         public void PlayLooped()
         {
@@ -38,22 +36,23 @@ namespace AgarioGame.Engine.Animation
         {
             _currentFrame = 0;
         }
-        public List<Texture> LoadFrames(List<string> texturePaths)
+        public void SetFrames(List<Texture> newFrames)
         {
-            List<Texture> framesList = new List<Texture>();
+            _frames = newFrames;
 
-            foreach (var path in texturePaths)
-            {    
-               framesList.Add(new Texture(PathUtilite.CalculatePath(path)));    
-            }
-
-            return framesList;
+            _animableSprite.Texture = _frames[_currentFrame];
+            _updateTrigger = 1 / _frames.Count;
         }
         private void NextFrame()
         {
+            if(_frames == null)
+            {
+                return;
+            }
+
             _currentFrame++;
 
-            if (_currentFrame > _frames.Count)
+            if (_currentFrame >= _frames.Count)
             {
                 _currentFrame = 0;
             }

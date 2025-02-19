@@ -5,6 +5,8 @@ using AgarioGame.Engine.Factories;
 using AgarioGame.Game.AudioExtensions;
 using AgarioGame.Engine.Core.Input.KeyBind;
 using AgarioGame.Engine.Core.Time;
+using SFML.Graphics;
+using AgarioGame.Engine.Animation;
 
 namespace AgarioGame.Engine
 {
@@ -32,6 +34,8 @@ namespace AgarioGame.Engine
             enemyList = new();
             foodList = new();
 
+            Subscriber.Initialize(_gameLoop);
+
             _gameObjFactory = new(_gameLoop);
             _controllerFactory = new(_gameLoop);
             _keyBindManager = new(_gameLoop);
@@ -40,16 +44,16 @@ namespace AgarioGame.Engine
         }
         public void Initialisation()
         {
-            InitializeTimer();
+            InitializeFon();
             InitializeConfigs();
             InitializeAudio();
             InitializeFood();
             InitializeEnemyes();
             InitializePlayer();
         }
-        private void InitializeTimer()
+        private void InitializeFon()
         {
-            TimerManager.Instance.RegisterManager(_gameLoop);
+            GameObject fon = _gameObjFactory.Instantiate<GameObject>(new(200,0),Color.White,new(1.5f,1.5f),Resources.GetTexture("Fon.jpg"));
         }
         private void InitializeAudio()
         {

@@ -24,6 +24,11 @@ namespace AgarioGame.Game.Controllers
             AnimationProcess();
             Pawn.SetVelocity(_velocity);
         }
+        public void Start()
+        {
+            InitializeConditions();
+            InitializekeyBinds();
+        }
         private void AudioProcess()
         {
             if (_velocity == new Vector2f(0, 0))

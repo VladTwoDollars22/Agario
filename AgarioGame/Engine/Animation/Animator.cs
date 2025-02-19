@@ -13,6 +13,7 @@ namespace AgarioGame.Engine.Animation
         {
             _animatedSprite = sprite;
             _transitions = new();
+            _transitions.Add(startState, new List<Transition>());
 
             _stateMachine = new(startState,_transitions);
         }

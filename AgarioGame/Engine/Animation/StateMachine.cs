@@ -24,6 +24,7 @@
         }
         private void ChangeState(State newState)
         {
+            Console.WriteLine($"Changing state from {_currentState.Name} to {newState.Name}");
             _currentState.OnExit();
             _currentState = newState;
             _currentState.OnEnter();

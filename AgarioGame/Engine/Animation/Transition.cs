@@ -17,6 +17,11 @@
         }
         public bool CanDoTransition()
         {
+            if(_conditions.Count == 0)
+            {
+                return false;
+            }
+
             return _conditions.All(condition => condition());
         }
     }
