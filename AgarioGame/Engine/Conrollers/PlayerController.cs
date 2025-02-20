@@ -7,9 +7,10 @@ public class PlayerController : Controller, IInputHandler
 {
     public KeyBindManager KeyBindManager;
 
-    public PlayerController()
-    {
-        InitializekeyBinds();
+    public PlayerController(){
+        {
+            
+        }
     }
 
     public void SetKeyBindManager(KeyBindManager kb)

@@ -26,6 +26,11 @@ namespace AgarioGame.Engine
 
             return new Vector2f(x, y);
         }
+        public static Vector2f GetRandomDirection()
+        {
+            float angle = (float)(_random.NextDouble() * Math.PI * 2);
+            return new Vector2f((float)Math.Cos(angle), (float)Math.Sin(angle));
+        }
         public static int GetRandomNumber(int min,int max)
         {
            return _random.Next(min, max);

@@ -14,14 +14,23 @@ namespace AgarioGame.Engine.Animation
         private Sprite _animableSprite;
         private static int _animID = 0;
 
-        public AnimationClip(string animName,Sprite sprite)
+        public AnimationClip(string animName,List<Texture> textures)
         {
             _animID++;
 
-            _animableSprite = sprite;
             AnimationName = animName+_animID;
 
+            _frames = textures;
+
+            _updateTrigger = 1f / _frames.Count;
+
             _currentFrame = 0;
+        }
+        public void SetAnimatedSprite(Sprite sprite)
+        {
+            _animableSprite = sprite;
+
+            _animableSprite.Texture = _frames[_currentFrame];
         }
         public void PlayLooped()
         {
@@ -39,32 +48,15 @@ namespace AgarioGame.Engine.Animation
         {
             _currentFrame = 0;
         }
-        public void SetFrames(List<Texture> newFrames)
-        {
-            _frames = newFrames;
-
-            _animableSprite.Texture = _frames[_currentFrame];
-
-            if(_updateTrigger != 0)
-                _updateTrigger = 1 / _frames.Count;
-        }
-        public void SetTrigger(float updateTrigger)
-        {
-            _updateTrigger = updateTrigger;
-        }
         private void NextFrame()
         {
-            if(_frames == null)
-            {
+            if (_frames == null)
                 return;
-            }
 
             _currentFrame++;
 
             if (_currentFrame >= _frames.Count)
-            {
                 _currentFrame = 0;
-            }
 
             _animableSprite.Texture = _frames[_currentFrame];
         }

@@ -1,7 +1,7 @@
 ﻿using AgarioGame.Engine.Animation;
 using AgarioGame.Engine.Core.Time;
-using AgarioGame.Game;
 using AgarioGame.Game.AudioExtensions;
+using AgarioGame.Game.Configs;
 using AgarioGame.Game.Factoryes;
 namespace AgarioGame.Engine
 {

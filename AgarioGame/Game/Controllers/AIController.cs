@@ -11,9 +11,7 @@ namespace AgarioGame.Game.Controllers
         private bool _isMoving;
         private Vector2f _direction;
         private float _changeDirectionTime;
-        private int _directionChangeCount;
-        private const float ChangeInterval = 2.0f;
-        private const int MaxDirectionChanges = 3;
+        private const float ChangeInterval = 5.0f;
 
         public PlayableObject PPawn => _playablePawn;
 
@@ -25,39 +23,22 @@ namespace AgarioGame.Game.Controllers
         public override void Start()
         {
             InitializeConditions();
-            _direction = GetRandomDirection();
+            _direction = Mathematics.GetRandomDirection();
             _changeDirectionTime = ChangeInterval;
-            _directionChangeCount = 0;
         }
 
         public override void Update()
         {
-            if (_directionChangeCount < MaxDirectionChanges)
-            {
-                _changeDirectionTime -= Engine.Core.Time.Time.DeltaTime;
+            _changeDirectionTime -= Engine.Core.Time.Time.DeltaTime;
 
-                if (_changeDirectionTime <= 0)
-                {
-                    _direction = GetRandomDirection();
-                    _directionChangeCount++;
-                    _changeDirectionTime = ChangeInterval;
-                }
-
-                _isMoving = true;
-            }
-            else
+            if (_changeDirectionTime <= 0)
             {
-                _isMoving = false;
+                _direction = Mathematics.GetRandomDirection();
+                _changeDirectionTime = ChangeInterval;
             }
 
+            _isMoving = true;
             Pawn.SetVelocity(_isMoving ? _direction : new Vector2f(0, 0));
-        }
-
-        private Vector2f GetRandomDirection()
-        {
-            Random rand = new Random();
-            float angle = (float)(rand.NextDouble() * Math.PI * 2);
-            return new Vector2f((float)Math.Cos(angle), (float)Math.Sin(angle));
         }
 
         private void InitializeConditions()

@@ -12,6 +12,8 @@ namespace AgarioGame.Game.Controllers
         private PlayableObject _playablePawn;
         public PlayableObject PlayablePawn => _playablePawn;
 
+        private List<AIController> _enemyes;
+
         private bool _isMoving;
         private bool _idle;
         public AgarioPlayerController()
@@ -28,6 +30,10 @@ namespace AgarioGame.Game.Controllers
         {
             InitializeConditions();
             InitializekeyBinds();
+        }
+        public void SetEnemyes(List<AIController> AIControllers)
+        {
+            _enemyes = AIControllers;
         }
         private void AudioProcess()
         {
@@ -53,6 +59,16 @@ namespace AgarioGame.Game.Controllers
                 _idle = false;
             }
         }
+        public void Swap()
+        {
+            int randInt = Mathematics.GetRandomNumber(0, _enemyes.Count - 1);
+
+            PlayableObject playerPawn = PlayablePawn;
+
+            SetPawn(_enemyes[randInt].Pawn);
+
+            _enemyes[randInt].SetPawn(playerPawn);
+        }
         public override void InputProcess()
         {
             _velocity = MovementInput.GetInput();
@@ -68,7 +84,8 @@ namespace AgarioGame.Game.Controllers
 
         public override void InitializekeyBinds()
         {
-
+            KeyBindManager.AddKeyBind("Swap",SFML.Window.Keyboard.Key.F);
+            KeyBindManager.GetKeyBind("Swap").AddOnDownCallback(Swap);
         }
     }
 }

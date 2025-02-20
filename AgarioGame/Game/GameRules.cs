@@ -7,6 +7,7 @@ using AgarioGame.Engine.Core.Input.KeyBind;
 using AgarioGame.Engine.Core.Time;
 using SFML.Graphics;
 using AgarioGame.Engine.Animation;
+using AgarioGame.Game.Configs;
 
 namespace AgarioGame.Engine
 {
@@ -14,7 +15,7 @@ namespace AgarioGame.Engine
     {
         private GameLoop _gameLoop;
 
-        private List<AIController> enemyList;
+        private List<AIController> _enemyList;
 
         private List<Food> foodList;
 
@@ -25,7 +26,7 @@ namespace AgarioGame.Engine
         private int _foodCount;
         private int enemyCount;
 
-        private UnitFactory _factory;
+        private UnitFactory _unitFactory;
         private GameObjectFactory _gameObjFactory;
         private ControllerFactory _controllerFactory;
         private KeyBindManager _keyBindManager;
@@ -33,7 +34,7 @@ namespace AgarioGame.Engine
         {
             _gameLoop = loop;
 
-            enemyList = new();
+            _enemyList = new();
             foodList = new();
 
             Subscriber.Initialize(_gameLoop);
@@ -42,7 +43,7 @@ namespace AgarioGame.Engine
             _controllerFactory = new(_gameLoop);
             _keyBindManager = new(_gameLoop);
 
-            _factory = new(_gameObjFactory,_controllerFactory);
+            _unitFactory = new(_gameObjFactory,_controllerFactory,_keyBindManager);
         }
         public void Initialisation()
         {
@@ -72,38 +73,30 @@ namespace AgarioGame.Engine
             enemyCount = GameConfig.EnemyCount;
 
             AudioConfig.Initialize();
+
+            AnimationClipsConfig.Initialize();
         }
         private void InitializeFood()
         {
             for (int i = 0; i <= _foodCount; i++)
             {
-                foodList.Add(_factory.InstantiateFood());
+                foodList.Add(_unitFactory.InstantiateFood());
             }
         }
         private void InitializePlayer()
         {
-            _player = _factory.InstantiatePlayer(this);
+            _player = _unitFactory.InstantiatePlayer(_enemyList);
         }
         private void InitializeEnemyes()
         {
             for (int i = 0; i <= enemyCount; i++)
             {
-                enemyList.Add(_factory.InstantiateEnemy());
+                _enemyList.Add(_unitFactory.InstantiateEnemy());
             }
         }
         public void Logic()
         {
             CheckOccurences();
-        }
-        public void Swap()
-        {
-            int randInt = Mathematics.GetRandomNumber(0,enemyCount - 1);
-
-            PlayableObject playerPawn = _player.PlayablePawn;
-
-            _player.SetPawn(enemyList[randInt].Pawn);
-
-            enemyList[randInt].SetPawn(playerPawn);
         }
         public void CheckOccurences()
         {
@@ -118,7 +111,7 @@ namespace AgarioGame.Engine
 
             foreach (Food f in foodList)
             {
-                foreach (AIController e in enemyList)
+                foreach (AIController e in _enemyList)
                 {
                     if (f.ObjectIn(e.Pawn))
                     {
@@ -128,7 +121,7 @@ namespace AgarioGame.Engine
                 }     
             }
 
-            foreach(AIController e in enemyList)
+            foreach(AIController e in _enemyList)
             {
                 if (_player.Pawn.ObjectIn(e.Pawn))
                 {

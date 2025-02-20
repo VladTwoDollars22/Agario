@@ -1,5 +1,5 @@
-﻿using AgarioGame.Game;
-using AgarioGame.Game.AudioExtensions;
+﻿using AgarioGame.Game.AudioExtensions;
+using AgarioGame.Game.Configs;
 using SFML.Graphics;
 
 namespace AgarioGame.Engine

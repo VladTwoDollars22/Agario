@@ -1,5 +1,6 @@
 ﻿using AgarioGame.Engine;
 using AgarioGame.Engine.Conrollers;
+using AgarioGame.Engine.Core.Input.KeyBind;
 
 namespace AgarioGame.Engine.Factories
 {
@@ -19,20 +20,17 @@ namespace AgarioGame.Engine.Factories
 
             _gameLoop.UpdateEvent += controller.Update;
 
-            controller.Start();
-
             return controller;
         }
-        public T InstantiatePlayerController<T>(GameObject pawn) where T : PlayerController, new()
+        public T InstantiatePlayerController<T>(GameObject pawn,KeyBindManager kb) where T : PlayerController, new()
         {
             T controller = new();
 
             controller.SetPawn(pawn);
+            controller.SetKeyBindManager(kb);
 
             _gameLoop.UpdateEvent += controller.Update;
             _gameLoop.UpdateInput += controller.InputProcess;
-
-            controller.Start();
 
             return controller;
         }

@@ -12,6 +12,7 @@ namespace AgarioGame.Engine.Animation
         public Animator(Sprite sprite,State startState)
         {
             _animatedSprite = sprite;
+            startState.Clip.SetAnimatedSprite(_animatedSprite);
             _transitions = new();
             _transitions.Add(startState, new List<Transition>());
 
@@ -27,6 +28,8 @@ namespace AgarioGame.Engine.Animation
         }
         public void CreateState(string name, AnimationClip clip,StateType type)
         {
+            clip.SetAnimatedSprite(_animatedSprite);
+
             State state = new(clip,type,name);
             List<Transition> transitions = new();
 

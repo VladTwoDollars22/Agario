@@ -12,6 +12,7 @@
         private string _name;
 
         public string Name => _name;
+        public AnimationClip Clip => _clip;
         public State(AnimationClip clip,StateType type,string name)
         {
             _clip = clip;
