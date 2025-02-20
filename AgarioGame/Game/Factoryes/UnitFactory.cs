@@ -1,4 +1,6 @@
-﻿using AgarioGame.Engine;
+﻿using System.Net;
+using System.Numerics;
+using AgarioGame.Engine;
 using AgarioGame.Engine.Animation;
 using AgarioGame.Engine.Factories;
 using AgarioGame.Game.Controllers;
@@ -10,14 +12,17 @@ namespace AgarioGame.Game.Factoryes
     {
         private GameObjectFactory _gameObjFactory;
         private ControllerFactory _controllerFactory;
+        private Texture _foodTexture;
         public UnitFactory(GameObjectFactory gameObjFactory,ControllerFactory ctrlFactory)
         {
             _gameObjFactory = gameObjFactory;
             _controllerFactory = ctrlFactory;
+
+            _foodTexture = Resources.GetTexture("Food.png");
         }
         public Food InstantiateFood()
         {
-            Food food = _gameObjFactory.Instantiate<Food>(Mathematics.GetRandomPosition(GameConfig.GameFieldSize),Color.Transparent,GameConfig.FoodSize, Resources.GetTexture("circle.png"));
+            Food food = _gameObjFactory.Instantiate<Food>(Mathematics.GetRandomPosition(GameConfig.GameFieldSize),Color.Transparent,GameConfig.FoodSize, _foodTexture);
             food.SetGameField(GameConfig.GameFieldSize);
 
             food.SetRandomColor();
@@ -27,9 +32,11 @@ namespace AgarioGame.Game.Factoryes
         public AIController InstantiateEnemy()
         {
             PlayableObject enemy = _gameObjFactory.Instantiate<PlayableObject>(Mathematics.GetRandomPosition(GameConfig.GameFieldSize),
-                GameConfig.PlayerColor, GameConfig.PlayerSize, Resources.GetTexture("circle.png"));
+                GameConfig.PlayerColor, GameConfig.PlayerSize, Resources.GetTexture("PlayerAnim\\Idle\\idle1.png"));
 
             enemy.SetGameField(GameConfig.GameFieldSize);
+
+            enemy.SetAnimator(AnimatorFactory.InitializePlayerAnimator(enemy.Sprite));
 
             AIController controller = _controllerFactory.InstantiateController<AIController>(enemy);
 
@@ -38,7 +45,7 @@ namespace AgarioGame.Game.Factoryes
         public AgarioPlayerController InstantiatePlayer(GameRules rules)
         {
             PlayableObject player =  _gameObjFactory.Instantiate<PlayableObject>(Mathematics.GetRandomPosition(GameConfig.GameFieldSize),
-                GameConfig.PlayerColor, GameConfig.PlayerSize, Resources.GetTexture("circle.png"));
+                GameConfig.PlayerColor, GameConfig.PlayerSize, Resources.GetTexture("PlayerAnim\\Idle\\idle1.png"));
 
             player.SetGameField(GameConfig.GameFieldSize);
 
@@ -46,7 +53,6 @@ namespace AgarioGame.Game.Factoryes
 
             AgarioPlayerController controller = _controllerFactory.InstantiatePlayerController<AgarioPlayerController>(player);
             controller.SetPawn(player);
-            controller.Start();
 
             return controller;
         }

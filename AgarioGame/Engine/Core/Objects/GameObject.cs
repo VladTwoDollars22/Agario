@@ -68,30 +68,40 @@ namespace AgarioGame.Engine
             Vector2f nextPosition = Sprite.Position + _velocity * AgarioGame.Engine.Core.Time.Time.DeltaTime;
             FloatRect bounds = Sprite.GetGlobalBounds();
 
-            if (nextPosition.X < 0)
+            bool isTooWide = bounds.Width >= _gameField.X;
+            bool isTooTall = bounds.Height >= _gameField.Y;
+
+            if (!isTooWide)
             {
-                nextPosition.X = 0;
-                _velocity.X = 0;
-            }
-            else if (nextPosition.X + bounds.Width > _gameField.X)
-            {
-                nextPosition.X = _gameField.X - bounds.Width;
-                _velocity.X = 0;
+                if (nextPosition.X < 0)
+                {
+                    nextPosition.X = 0;
+                    _velocity.X = 0;
+                }
+                else if (nextPosition.X + bounds.Width > _gameField.X)
+                {
+                    nextPosition.X = _gameField.X - bounds.Width;
+                    _velocity.X = 0;
+                }
             }
 
-            if (nextPosition.Y < 0)
+            if (!isTooTall)
             {
-                nextPosition.Y = 0;
-                _velocity.Y = 0;
-            }
-            else if (nextPosition.Y + bounds.Height > _gameField.Y)
-            {
-                nextPosition.Y = _gameField.Y - bounds.Height;
-                _velocity.Y = 0;
+                if (nextPosition.Y < 0)
+                {
+                    nextPosition.Y = 0;
+                    _velocity.Y = 0;
+                }
+                else if (nextPosition.Y + bounds.Height > _gameField.Y)
+                {
+                    nextPosition.Y = _gameField.Y - bounds.Height;
+                    _velocity.Y = 0;
+                }
             }
 
             Sprite.Position = nextPosition;
         }
+
 
         public FloatRect GetBounds()
         {

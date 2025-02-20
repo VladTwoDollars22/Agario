@@ -20,6 +20,8 @@ namespace AgarioGame.Engine
 
         private AgarioPlayerController _player;
 
+        private GameObject _fon;
+
         private int _foodCount;
         private int enemyCount;
 
@@ -44,16 +46,17 @@ namespace AgarioGame.Engine
         }
         public void Initialisation()
         {
-            InitializeFon();
             InitializeConfigs();
             InitializeAudio();
+            InitializeFon();
             InitializeFood();
             InitializeEnemyes();
             InitializePlayer();
         }
         private void InitializeFon()
         {
-            GameObject fon = _gameObjFactory.Instantiate<GameObject>(new(200,0),Color.White,new(1.5f,1.5f),Resources.GetTexture("Fon.jpg"));
+            _fon = _gameObjFactory.Instantiate<GameObject>(new(0,0),new(255, 255, 255),new(1.5f,1.1f),Resources.GetTexture("paperfon.jpg"));
+            _fon.SetGameField(GameConfig.GameFieldSize);
         }
         private void InitializeAudio()
         {

@@ -19,6 +19,8 @@ namespace AgarioGame.Engine.Factories
 
             _gameLoop.UpdateEvent += controller.Update;
 
+            controller.Start();
+
             return controller;
         }
         public T InstantiatePlayerController<T>(GameObject pawn) where T : PlayerController, new()
@@ -29,6 +31,8 @@ namespace AgarioGame.Engine.Factories
 
             _gameLoop.UpdateEvent += controller.Update;
             _gameLoop.UpdateInput += controller.InputProcess;
+
+            controller.Start();
 
             return controller;
         }

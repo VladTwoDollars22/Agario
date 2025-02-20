@@ -1,4 +1,5 @@
 ﻿using AgarioGame.Engine.Animation;
+using AgarioGame.Engine.Core.Time;
 using AgarioGame.Game;
 using AgarioGame.Game.AudioExtensions;
 using AgarioGame.Game.Factoryes;
@@ -24,6 +25,7 @@ namespace AgarioGame.Engine
 
             UpdateSpeed();
 
+            SetSize(new(_mass / 2000f, _mass / 2000f));
             IsEating = false;
         }
         public override void Logic()
@@ -37,12 +39,17 @@ namespace AgarioGame.Engine
         public void Eat(float newMass)
         {
             IsEating = true;
+            TimerManager.Instance.SetTimeout(ResetEating, 1f);
 
             _mass += newMass * _massGrowMultiplicator;
 
             SetSize(new(_mass / 2000f, _mass / 2000f));
 
             UpdateSpeed();
+        }
+        private void ResetEating()
+        {
+            IsEating = false;
         }
         private void UpdateSpeed()
         {

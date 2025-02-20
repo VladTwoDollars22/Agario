@@ -14,5 +14,8 @@
             _pawn = newObj;
             _onPawnUpdated.Invoke(_pawn);
         }
+        public virtual void Start()
+        {
+        }
     }
 }

@@ -1,7 +1,7 @@
 [Game]
-PlayerSizeX=0.02
-PlayerSizeY=0.02
-PlayerMass=200
+PlayerSizeX=0.05
+PlayerSizeY=0.05
+PlayerMass=85
 MassFactor=4.10
 MassGrowMult=0.25
 BaseSpeed=3200
@@ -9,14 +9,14 @@ GameFieldSizeX=1920
 GameFieldSizeY=1080
 
 [Enemy]
-EnemyCount=10
+EnemyCount=2
 
 [Food]
-FoodReward=20
-FoodSizeX=0.01
-FoodSizeY=0.01
-FoodCount=150
+FoodReward=5
+FoodSizeX=0.005
+FoodSizeY=0.005
+FoodCount=100
 
 [Colors]
-PlayerColor=200,200,50
-FoodColors=255,0,0;0,0,255;255,0,255;0,255,0
+PlayerColor=255,255,255
+FoodColors=255,255,255

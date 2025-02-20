@@ -9,17 +9,17 @@ namespace AgarioGame.Game
     {
         private static string IniName = "GameConfigurations.txt";
 
-        public static Vector2f PlayerSize { get; private set; } = new(0.11f,0.11f);
+        public static Vector2f PlayerSize { get; private set; } = new(0.05f,0.05f);
         public static float PlayerMass { get; private set; } = 200;
         public static float MassFactor { get; private set; } = 0.5f;
         public static float MassGrowMult { get; private set; } = 1f;
         public static float BaseSpeed { get; private set; } = 4000f;
         public static Vector2f GameFieldSize { get; private set; } = new(1600f, 900f);
         public static List<Color> FoodColors { get; private set; } = new() { Color.Red, Color.Blue, Color.Magenta, Color.Green };
-        public static Color PlayerColor { get; private set; } = Color.Yellow;
+        public static Color PlayerColor { get; private set; } = Color.Transparent;
         public static float FoodReward { get; private set; } = 5f;
-        public static Vector2f FoodSize { get; private set; } = new(0.025f,0.025f);
-        public static int FoodCount { get; private set; } = 50;
+        public static Vector2f FoodSize { get; private set; } = new(0.016f,0.016f);
+        public static int FoodCount { get; private set; } = 10;
         public static int EnemyCount { get; private set; } = 10;
 
         public static string CircleTexturePath = "E:\\GitHub\\Agario\\AgarioGame\\Resources\\circle.png";
@@ -27,7 +27,6 @@ namespace AgarioGame.Game
         public static void Initialize()
         {
             IniLoader.Load(PathUtilite.CalculatePath(IniName));
-
             PlayerSize = IniParserUtil.GetVector2f("PlayerSizeX","PlayerSizeY", PlayerSize);
             PlayerMass = IniParserUtil.GetFloat("PlayerMass", PlayerMass);
             MassFactor = IniParserUtil.GetFloat("MassFactor", MassFactor);

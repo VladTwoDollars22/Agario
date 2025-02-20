@@ -24,7 +24,7 @@ namespace AgarioGame.Game.Controllers
             AnimationProcess();
             Pawn.SetVelocity(_velocity);
         }
-        public void Start()
+        public override void Start()
         {
             InitializeConditions();
             InitializekeyBinds();
@@ -51,7 +51,6 @@ namespace AgarioGame.Game.Controllers
             {
                 _isMoving = true;
                 _idle = false;
-                _playablePawn.IsEating = false;
             }
         }
         public override void InputProcess()
