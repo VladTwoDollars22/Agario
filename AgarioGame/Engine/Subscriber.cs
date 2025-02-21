@@ -13,5 +13,13 @@
         {
             _loop.UpdateEvent += Object.Update;
         }
+        public static void SubscribeOnDraw(IDrawable Object)
+        {
+            _loop.DrawEvent += Object.Draw;
+        }
+        public static void SubscribeOnInput(IInputHandler Object)
+        {
+            _loop.UpdateInput += Object.InputProcess;
+        }
     }
 }

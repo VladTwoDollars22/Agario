@@ -9,8 +9,6 @@ namespace AgarioGame.Engine
 {
     public class GameScene : Scene
     {
-        private GameLoop _gameLoop;
-
         private List<AIController> _enemyList;
 
         private List<Food> foodList;
@@ -23,10 +21,8 @@ namespace AgarioGame.Engine
         private int enemyCount;
 
         private UnitFactory _unitFactory;
-        public GameScene(GameLoop loop) : base(loop)
+        public GameScene() : base()
         {
-            _gameLoop = loop;
-
             _enemyList = new();
             foodList = new();
 

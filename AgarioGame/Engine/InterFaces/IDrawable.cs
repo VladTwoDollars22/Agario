@@ -4,6 +4,6 @@ namespace AgarioGame.Engine
 {
     public interface IDrawable
     {
-        void Draw();
+        void Draw(RenderWindow window);
     }
 }

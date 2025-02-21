@@ -14,7 +14,6 @@ namespace AgarioGame.Engine
         private bool _isActive;
         private bool _isVisible;
 
-        private RenderWindow _window;
         private Vector2f _gameField;
 
         public Vector2f GetVelocity() => _velocity;
@@ -35,11 +34,11 @@ namespace AgarioGame.Engine
 
         public virtual void Logic() { }
 
-        public void Draw()
+        public void Draw(RenderWindow window)
         {
             if (_isVisible)
             {
-                _window?.Draw(Sprite);
+                window.Draw(Sprite);
             }
         }
 
@@ -117,12 +116,6 @@ namespace AgarioGame.Engine
         {
             Sprite.Position = pos;
         }
-
-        public void SetWindow(RenderWindow window)
-        {
-            _window = window;
-        }
-
         public void Destroy()
         {
             SetVisibility(false);

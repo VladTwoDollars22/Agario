@@ -6,19 +6,13 @@ namespace AgarioGame.Engine.Factories
 {
     public class ControllerFactory
     {
-        private GameLoop _gameLoop;
-
-        public ControllerFactory(GameLoop gameLoop)
-        {
-            _gameLoop = gameLoop;
-        }
         public T InstantiateController<T>(GameObject pawn) where T : Controller,new()
         {
             T controller = new();
 
             controller.SetPawn(pawn);
 
-            _gameLoop.UpdateEvent += controller.Update;
+            Subscriber.SubscribeOnUpdate(controller);
 
             return controller;
         }
@@ -29,8 +23,8 @@ namespace AgarioGame.Engine.Factories
             controller.SetPawn(pawn);
             controller.SetKeyBindManager(kb);
 
-            _gameLoop.UpdateEvent += controller.Update;
-            _gameLoop.UpdateInput += controller.InputProcess;
+            Subscriber.SubscribeOnUpdate(controller);
+            Subscriber.SubscribeOnInput(controller);
 
             return controller;
         }

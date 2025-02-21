@@ -6,23 +6,17 @@ namespace AgarioGame.Engine.ScenesExtentions
 {
     public class Scene
     {
-        protected GameLoop _gameLoop;
-
         protected List<GameObject> _activeObjects;
         protected List<Controller> _activeControllers;
 
         protected GameObjectFactory _gameObjFactory;
         protected ControllerFactory _controllerFactory;
         protected KeyBindManager _keyBindManager;
-        public Scene(GameLoop loop)
+        public Scene()
         {
-            _gameLoop = loop;
-
-            _gameObjFactory = new(_gameLoop);
-            _controllerFactory = new(_gameLoop);
-            _keyBindManager = new(_gameLoop);
-
-            Subscriber.Initialize(_gameLoop);
+            _gameObjFactory = new();
+            _controllerFactory = new();
+            _keyBindManager = new();
 
             _activeObjects = new();
             _activeControllers = new();

@@ -1,4 +1,5 @@
 ﻿using AgarioGame.Engine;
+using AgarioGame.Engine.ScenesExtentions;
 using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
@@ -13,12 +14,9 @@ namespace AgarioGame
 
         private float _updateTrigger;
 
-        public event Action DrawEvent;
+        public event Action<RenderWindow> DrawEvent;
         public event Action UpdateEvent;
         public event Action UpdateInput;
-
-        private GameScene _game;
-
         public RenderWindow Window => _window;
         public GameLoop()
         {
@@ -28,7 +26,7 @@ namespace AgarioGame
 
             _updateTrigger = 1f / _targetFPS;
 
-            _game = new GameScene(this);
+            Subscriber.Initialize(this);
         }
         public void MainGameLoop()
         {
@@ -55,16 +53,12 @@ namespace AgarioGame
         }
         private void Initialisation()
         {
-            _game.Initialisation();
+            SceneManager.CurrentScene.Initialisation();
             InitializeWindowEvents();
         }
         private void InitializeWindowEvents()
         {
             _window.Closed += WindowClosed;
-        }
-        public void GameInitialisation()
-        {
-            _game.Initialisation();
         }
         private void InputProcess()
         {
@@ -77,7 +71,7 @@ namespace AgarioGame
         {
             UpdateAll();
 
-            _game.Logic();
+            SceneManager.CurrentScene.Logic();
         }
         private void UpdateAll()
         {
@@ -93,7 +87,7 @@ namespace AgarioGame
         }
         public void DrawAll()
         {
-            DrawEvent?.Invoke();
+            DrawEvent?.Invoke(_window);
         }
         static void WindowClosed(object sender, EventArgs e)
         {

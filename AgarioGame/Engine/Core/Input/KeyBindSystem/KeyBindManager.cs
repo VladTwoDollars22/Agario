@@ -6,9 +6,9 @@ namespace AgarioGame.Engine.Core.Input.KeyBind
     {
         private List<KeyBind> _keyBinds = new List<KeyBind>();
 
-        public KeyBindManager(GameLoop loop)
+        public KeyBindManager()
         {
-            RegisterManager(loop);
+            RegisterManager();
         }
         public void Update()
         {
@@ -35,9 +35,9 @@ namespace AgarioGame.Engine.Core.Input.KeyBind
         public KeyBind GetKeyBind(string name)
             => _keyBinds.Single(x => x.Name == name);
 
-        public void RegisterManager(GameLoop loop)
+        public void RegisterManager()
         {
-            loop.UpdateEvent += Update;
+            Subscriber.SubscribeOnUpdate(this);
         }
     }
 }

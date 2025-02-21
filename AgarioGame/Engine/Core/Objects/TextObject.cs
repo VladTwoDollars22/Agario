@@ -3,7 +3,7 @@ using SFML.System;
 
 namespace AgarioGame.Engine
 {
-    public class TextObject
+    public class TextObject : IDrawable
     {
         private Font _font;
         private Text _text;
@@ -37,19 +37,13 @@ namespace AgarioGame.Engine
         }
         public void RegisterText(GameLoop gameLoop)
         {
-            SetWindow(gameLoop.Window);
-
-            gameLoop.DrawEvent += Draw;
+            Subscriber.SubscribeOnDraw(this);
         }
-        public void SetWindow(RenderWindow window)
-        {
-            _window = window;
-        }
-        public void Draw()
+        public void Draw(RenderWindow window)
         {
             if (_isVisible)
             {
-                _window?.Draw(_text);
+                window?.Draw(_text);
             }
         }
         public void SetVisiblity(bool isVisible)
