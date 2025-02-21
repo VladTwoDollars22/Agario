@@ -17,7 +17,7 @@ namespace AgarioGame
         public event Action UpdateEvent;
         public event Action UpdateInput;
 
-        private GameRules _game;
+        private GameScene _game;
 
         public RenderWindow Window => _window;
         public GameLoop()
@@ -28,7 +28,7 @@ namespace AgarioGame
 
             _updateTrigger = 1f / _targetFPS;
 
-            _game = new GameRules(this);
+            _game = new GameScene(this);
         }
         public void MainGameLoop()
         {

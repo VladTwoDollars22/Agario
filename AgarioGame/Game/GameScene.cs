@@ -1,17 +1,13 @@
-﻿using AgarioGame.Game;
-using AgarioGame.Game.Controllers;
+﻿using AgarioGame.Game.Controllers;
 using AgarioGame.Game.Factoryes;
-using AgarioGame.Engine.Factories;
 using AgarioGame.Game.AudioExtensions;
-using AgarioGame.Engine.Core.Input.KeyBind;
-using AgarioGame.Engine.Core.Time;
-using SFML.Graphics;
 using AgarioGame.Engine.Animation;
 using AgarioGame.Game.Configs;
+using AgarioGame.Engine.ScenesExtentions;
 
 namespace AgarioGame.Engine
 {
-    public class GameRules
+    public class GameScene : Scene
     {
         private GameLoop _gameLoop;
 
@@ -27,25 +23,16 @@ namespace AgarioGame.Engine
         private int enemyCount;
 
         private UnitFactory _unitFactory;
-        private GameObjectFactory _gameObjFactory;
-        private ControllerFactory _controllerFactory;
-        private KeyBindManager _keyBindManager;
-        public GameRules(GameLoop loop)
+        public GameScene(GameLoop loop) : base(loop)
         {
             _gameLoop = loop;
 
             _enemyList = new();
             foodList = new();
 
-            Subscriber.Initialize(_gameLoop);
-
-            _gameObjFactory = new(_gameLoop);
-            _controllerFactory = new(_gameLoop);
-            _keyBindManager = new(_gameLoop);
-
             _unitFactory = new(_gameObjFactory,_controllerFactory,_keyBindManager);
         }
-        public void Initialisation()
+        public override void Initialisation()
         {
             InitializeConfigs();
             InitializeAudio();
@@ -94,7 +81,7 @@ namespace AgarioGame.Engine
                 _enemyList.Add(_unitFactory.InstantiateEnemy());
             }
         }
-        public void Logic()
+        public override void Logic()
         {
             CheckOccurences();
         }
