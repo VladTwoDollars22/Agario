@@ -45,6 +45,8 @@ namespace AgarioGame.Engine
         {
             _fon = _gameObjFactory.Instantiate<GameObject>(new(0,0),new(255, 255, 255),new(1.5f,1.1f),Resources.GetTexture("paperfon.jpg"));
             _fon.SetGameField(GameConfig.GameFieldSize);
+            _activeObjects.Add(_fon);
+
         }
         private void InitializeAudio()
         {
@@ -67,18 +69,26 @@ namespace AgarioGame.Engine
         {
             for (int i = 0; i <= _foodCount; i++)
             {
-                foodList.Add(_unitFactory.InstantiateFood());
+                Food food = _unitFactory.InstantiateFood();
+                foodList.Add(food);
+                _activeObjects.Add(food);
             }
         }
         private void InitializePlayer()
         {
-            _player = _unitFactory.InstantiatePlayer(_enemyList);
+            AgarioPlayerController player = _unitFactory.InstantiatePlayer(_enemyList);
+            _player = player;
+            _activeObjects.Add(player.Pawn);
+            _activeControllers.Add(player);
         }
         private void InitializeEnemyes()
         {
             for (int i = 0; i <= enemyCount; i++)
             {
-                _enemyList.Add(_unitFactory.InstantiateEnemy());
+                AIController AI = _unitFactory.InstantiateEnemy();
+                _enemyList.Add(AI);
+                _activeObjects.Add(AI.Pawn);
+                _activeControllers.Add(AI);
             }
         }
         public override void Logic()

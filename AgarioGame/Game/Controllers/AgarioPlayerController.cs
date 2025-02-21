@@ -22,6 +22,8 @@ namespace AgarioGame.Game.Controllers
         }
         public override void Update()
         {
+            if (!_isActive) return;
+
             AudioProcess();
             AnimationProcess();
             Pawn.SetVelocity(_velocity);
@@ -71,6 +73,8 @@ namespace AgarioGame.Game.Controllers
         }
         public override void InputProcess()
         {
+            if (!_isActive) return;
+
             _velocity = MovementInput.GetInput();
         }
         private void InitializeConditions()
@@ -86,6 +90,11 @@ namespace AgarioGame.Game.Controllers
         {
             KeyBindManager.AddKeyBind("Swap",SFML.Window.Keyboard.Key.F);
             KeyBindManager.GetKeyBind("Swap").AddOnDownCallback(Swap);
+        }
+
+        public void OnDestroy()
+        {
+            KeyBindManager.GetKeyBind("Swap").ResetOnDownCallback();
         }
     }
 }

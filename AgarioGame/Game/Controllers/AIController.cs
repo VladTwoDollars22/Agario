@@ -29,6 +29,8 @@ namespace AgarioGame.Game.Controllers
 
         public override void Update()
         {
+            if (!_isActive) return;
+
             _changeDirectionTime -= Engine.Core.Time.Time.DeltaTime;
 
             if (_changeDirectionTime <= 0)
