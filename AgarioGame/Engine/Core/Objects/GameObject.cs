@@ -31,7 +31,7 @@ namespace AgarioGame.Engine
                 Move();
             }
         }
-
+        public virtual void Start() { }
         public virtual void Logic() { }
 
         public void Draw()

@@ -42,6 +42,8 @@ namespace AgarioGame.Game.Factoryes
 
             enemy.SetAnimator(AnimatorFactory.InitializePlayerAnimator(enemy.Sprite));
 
+            enemy.Start();
+
             AIController controller = _controllerFactory.InstantiateController<AIController>(enemy);
 
             controller.Start();
@@ -56,6 +58,8 @@ namespace AgarioGame.Game.Factoryes
             player.SetGameField(GameConfig.GameFieldSize);
 
             player.SetAnimator(AnimatorFactory.InitializePlayerAnimator(player.Sprite));
+
+            player.Start();
 
             AgarioPlayerController controller = _controllerFactory.InstantiatePlayerController<AgarioPlayerController>(player, _keyBindManager);
             controller.SetPawn(player);

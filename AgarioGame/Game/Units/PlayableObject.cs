@@ -9,6 +9,7 @@ namespace AgarioGame.Engine
     {
         public Animator Animator;
         public bool IsEating;
+        private bool _isMoving;
 
         private float _mass;
         private float _massFactor;
@@ -28,13 +29,28 @@ namespace AgarioGame.Engine
             SetSize(new(_mass / 2000f, _mass / 2000f));
             IsEating = false;
         }
+        public override void Start()
+        {
+            InitializeConditions();
+        }
         public override void Logic()
         {
-            
+            AnimationLogic();
         }
         public void SetAnimator(Animator newAnimator)
         {
             Animator = newAnimator; 
+        }
+        private void AnimationLogic()
+        {
+            if (GetVelocity() == new SFML.System.Vector2f(0,0))
+            {
+                _isMoving = false;
+            }
+            else
+            {
+                _isMoving = true;
+            }
         }
         public void Eat(float newMass)
         {
@@ -61,6 +77,14 @@ namespace AgarioGame.Engine
         {
             AudioSystem.PlaySound("eating");
             Destroy();
+        }
+        private void InitializeConditions()
+        {
+            Animator.AddConditionToTransition("Idle", "Move", () => _isMoving && !IsEating);
+            Animator.AddConditionToTransition("Idle", "Eat", () => IsEating);
+            Animator.AddConditionToTransition("Move", "Idle", () => !_isMoving && !IsEating);
+            Animator.AddConditionToTransition("Move", "Eat", () => IsEating);
+            Animator.AddConditionToTransition("Eat", "Idle", () => !IsEating);
         }
     }
 }

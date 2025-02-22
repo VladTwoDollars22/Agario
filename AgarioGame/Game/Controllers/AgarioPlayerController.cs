@@ -13,9 +13,6 @@ namespace AgarioGame.Game.Controllers
         public PlayableObject PlayablePawn => _playablePawn;
 
         private List<AIController> _enemyes;
-
-        private bool _isMoving;
-        private bool _idle;
         public AgarioPlayerController()
         {
             _onPawnUpdated += pawn => _playablePawn = pawn as PlayableObject;
@@ -25,12 +22,10 @@ namespace AgarioGame.Game.Controllers
             if (!_isActive) return;
 
             AudioProcess();
-            AnimationProcess();
             Pawn.SetVelocity(_velocity);
         }
         public override void Start()
         {
-            InitializeConditions();
             InitializekeyBinds();
         }
         public void SetEnemyes(List<AIController> AIControllers)
@@ -46,19 +41,6 @@ namespace AgarioGame.Game.Controllers
             else
             {
                 AudioSystem.PlaySound("moving");
-            }
-        }
-        private void AnimationProcess()
-        {
-            if (_velocity == new Vector2f(0, 0))
-            {
-                _idle = true;
-                _isMoving = false;
-            }
-            else
-            {
-                _isMoving = true;
-                _idle = false;
             }
         }
         public void Swap()
@@ -77,15 +59,6 @@ namespace AgarioGame.Game.Controllers
 
             _velocity = MovementInput.GetInput();
         }
-        private void InitializeConditions()
-        {
-            _playablePawn.Animator.AddConditionToTransition("Idle", "Move", () => _isMoving && !_playablePawn.IsEating);
-            _playablePawn.Animator.AddConditionToTransition("Idle", "Eat", () => _playablePawn.IsEating);
-            _playablePawn.Animator.AddConditionToTransition("Move", "Idle", () => !_isMoving && !_playablePawn.IsEating);
-            _playablePawn.Animator.AddConditionToTransition("Move", "Eat", () => _playablePawn.IsEating);
-            _playablePawn.Animator.AddConditionToTransition("Eat", "Idle", () => !_playablePawn.IsEating);
-        }
-
         public override void InitializekeyBinds()
         {
             KeyBindManager.AddKeyBind("Swap",SFML.Window.Keyboard.Key.F);
