@@ -8,16 +8,16 @@ namespace AgarioGame
 {
     public class GameLoop
     {
-        private RenderWindow _window;
+        private static RenderWindow _window;
 
         private int _targetFPS;
 
         private float _updateTrigger;
 
-        public event Action<RenderWindow> DrawEvent;
+        public event Action DrawEvent;
         public event Action UpdateEvent;
         public event Action UpdateInput;
-        public RenderWindow Window => _window;
+        public static RenderWindow Window => _window;
         public GameLoop()
         {
             _window = new RenderWindow(new VideoMode(1920, 1080), "Agario");
@@ -87,7 +87,7 @@ namespace AgarioGame
         }
         public void DrawAll()
         {
-            DrawEvent?.Invoke(_window);
+            DrawEvent?.Invoke();
         }
         static void WindowClosed(object sender, EventArgs e)
         {

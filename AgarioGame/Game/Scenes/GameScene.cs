@@ -4,8 +4,9 @@ using AgarioGame.Game.AudioExtensions;
 using AgarioGame.Engine.Animation;
 using AgarioGame.Game.Configs;
 using AgarioGame.Engine.ScenesExtentions;
+using AgarioGame.Engine;
 
-namespace AgarioGame.Engine
+namespace AgarioGame.Game.Scenes
 {
     public class GameScene : Scene
     {
@@ -26,7 +27,7 @@ namespace AgarioGame.Engine
             _enemyList = new();
             foodList = new();
 
-            _unitFactory = new(_gameObjFactory,_controllerFactory,_keyBindManager);
+            _unitFactory = new(_gameObjFactory, _controllerFactory, _keyBindManager);
         }
         public override void Initialisation()
         {
@@ -39,10 +40,9 @@ namespace AgarioGame.Engine
         }
         private void InitializeFon()
         {
-            _fon = _gameObjFactory.Instantiate<GameObject>(new(0,0),new(255, 255, 255),new(1.5f,1.1f),Resources.GetTexture("paperfon.jpg"));
+            _fon = _gameObjFactory.Instantiate<GameObject>(new(0, 0), new(255, 255, 255), new(1.5f, 1.1f), Resources.GetTexture("paperfon.jpg"));
             _fon.SetGameField(GameConfig.GameFieldSize);
             _activeObjects.Add(_fon);
-
         }
         private void InitializeAudio()
         {
@@ -111,10 +111,10 @@ namespace AgarioGame.Engine
                         f.EatMe();
                         e.PPawn.Eat(f.Reward);
                     }
-                }     
+                }
             }
 
-            foreach(AIController e in _enemyList)
+            foreach (AIController e in _enemyList)
             {
                 if (_player.Pawn.ObjectIn(e.Pawn))
                 {

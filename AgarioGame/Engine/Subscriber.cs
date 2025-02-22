@@ -1,4 +1,6 @@
-﻿namespace AgarioGame.Engine
+﻿using TGUI;
+
+namespace AgarioGame.Engine
 {
     public static class Subscriber
     {
@@ -8,7 +10,10 @@
         {
             _loop = loop;
         }
-
+        public static void SubscribeGUIOnDraw(Gui gui)
+        {
+            _loop.DrawEvent += gui.Draw;
+        }
         public static void SubscribeOnUpdate(IUpdatable Object)
         {
             _loop.UpdateEvent += Object.Update;

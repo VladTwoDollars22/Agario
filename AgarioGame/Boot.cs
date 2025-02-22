@@ -1,5 +1,5 @@
-﻿using AgarioGame.Engine;
-using AgarioGame.Engine.ScenesExtentions;
+﻿using AgarioGame.Engine.ScenesExtentions;
+using AgarioGame.Game.Scenes;
 
 namespace AgarioGame
 {
@@ -8,7 +8,7 @@ namespace AgarioGame
         public static void Main(string[] args)
         {
             GameLoop game = new GameLoop();
-            SceneManager.SetScene(new GameScene());
+            SceneManager.SetScene(new LobbyScene());
 
             game.MainGameLoop();
         }

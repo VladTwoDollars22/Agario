@@ -12,17 +12,16 @@ namespace AgarioGame.Engine.ScenesExtentions
         protected GameObjectFactory _gameObjFactory;
         protected ControllerFactory _controllerFactory;
         protected KeyBindManager _keyBindManager;
+        protected UIObjectFactory _uIObjectFactory;
         public Scene()
         {
             _gameObjFactory = new();
             _controllerFactory = new();
             _keyBindManager = new();
+            _uIObjectFactory = new();
 
             _activeObjects = new();
             _activeControllers = new();
-
-            _keyBindManager.AddKeyBind("DeleteScene",SFML.Window.Keyboard.Key.J);
-            _keyBindManager.GetKeyBind("DeleteScene").AddOnDownCallback(Delete);
         }
         public virtual void Initialisation() { }
         public virtual void Logic() { }

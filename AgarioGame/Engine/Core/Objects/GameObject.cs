@@ -34,11 +34,11 @@ namespace AgarioGame.Engine
 
         public virtual void Logic() { }
 
-        public void Draw(RenderWindow window)
+        public void Draw()
         {
             if (_isVisible)
             {
-                window.Draw(Sprite);
+                GameLoop.Window.Draw(Sprite);
             }
         }
 
