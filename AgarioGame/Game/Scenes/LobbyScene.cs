@@ -4,21 +4,17 @@ using AgarioGame.Engine.ScenesExtentions;
 using AgarioGame.Engine;
 using AgarioGame.Engine.Animation;
 using AgarioGame.Game.Configs;
+using AgarioGame.Engine.UIExtentions;
 
 namespace AgarioGame.Game.Scenes
 {
     public class LobbyScene : Scene
     {
-        private Gui _canvas;
-        private List<Widget> _widgets;
+        private Canvas _canvas;
 
         private GameObject _fon;
 
-        public LobbyScene() : base()
-        {
-            _widgets = new();
-        }
-    
+        public LobbyScene() : base() { }
         public override void Initialisation()
         {
             InitializeFon();
@@ -41,8 +37,6 @@ namespace AgarioGame.Game.Scenes
             Button startButton = _uIObjectFactory.InstantiateButton(_canvas, new(700, 500), new(400, 150), "Play", "Розпочати гру");
             startButton.Connect("Clicked", Play);
 
-            _widgets.Add(startButton);
-
             TextArea text = _uIObjectFactory.InstantiateText(_canvas, new(700, 300), new(400, 150), "Text", "Ласкаво просимо в шизо агаріо" +
                 ",ви Кирило,вами 3 рочки й через вашу неслухняність" +
                 " в садочку вас посадили в куток з карандашем та бумажкою" +
@@ -50,10 +44,7 @@ namespace AgarioGame.Game.Scenes
         }
         public override void OnDelete()
         {
-            foreach(Widget widget in _widgets)
-            {
-                _canvas.Remove(widget);
-            }
+            _canvas.Destroy();
         }
     }
 }
