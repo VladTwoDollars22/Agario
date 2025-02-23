@@ -4,6 +4,7 @@ using AgarioGame.Engine;
 using AgarioGame.Engine.Animation;
 using AgarioGame.Engine.Core.Input.KeyBind;
 using AgarioGame.Engine.Factories;
+using AgarioGame.Engine.Utilities;
 using AgarioGame.Game.Configs;
 using AgarioGame.Game.Controllers;
 using SFML.Graphics;
@@ -16,11 +17,13 @@ namespace AgarioGame.Game.Factoryes
         private ControllerFactory _controllerFactory;
         private KeyBindManager _keyBindManager;
         private Texture _foodTexture;
-        public UnitFactory(GameObjectFactory gameObjFactory,ControllerFactory ctrlFactory,KeyBindManager kbManager)
+        public UnitFactory()
         {
-            _gameObjFactory = gameObjFactory;
-            _controllerFactory = ctrlFactory;
-            _keyBindManager = kbManager;
+            _gameObjFactory = Dependency.Get<GameObjectFactory>();
+            _controllerFactory = Dependency.Get<ControllerFactory>();
+            _keyBindManager = Dependency.Get<KeyBindManager>();
+
+            Dependency.Register(this);
 
             _foodTexture = Resources.GetTexture("Food.png");
         }

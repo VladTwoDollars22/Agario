@@ -27,7 +27,7 @@ namespace AgarioGame.Game.Scenes
             _enemyList = new();
             foodList = new();
 
-            _unitFactory = new(_gameObjFactory, _controllerFactory, _keyBindManager);
+            _unitFactory = new();
         }
         public override void Initialisation()
         {
@@ -42,7 +42,6 @@ namespace AgarioGame.Game.Scenes
         {
             _fon = _gameObjFactory.Instantiate<GameObject>(new(0, 0), new(255, 255, 255), new(1.5f, 1.1f), Resources.GetTexture("paperfon.jpg"));
             _fon.SetGameField(GameConfig.GameFieldSize);
-            _activeObjects.Add(_fon);
         }
         private void InitializeAudio()
         {
@@ -69,15 +68,12 @@ namespace AgarioGame.Game.Scenes
             {
                 Food food = _unitFactory.InstantiateFood();
                 foodList.Add(food);
-                _activeObjects.Add(food);
             }
         }
         private void InitializePlayer()
         {
             AgarioPlayerController player = _unitFactory.InstantiatePlayer(_enemyList);
             _player = player;
-            _activeObjects.Add(player.Pawn);
-            _activeControllers.Add(player);
         }
         private void InitializeEnemyes()
         {
@@ -85,8 +81,6 @@ namespace AgarioGame.Game.Scenes
             {
                 AIController AI = _unitFactory.InstantiateEnemy();
                 _enemyList.Add(AI);
-                _activeObjects.Add(AI.Pawn);
-                _activeControllers.Add(AI);
             }
         }
         public override void Logic()

@@ -1,4 +1,5 @@
-﻿using SFML.Window;
+﻿using AgarioGame.Engine.Utilities;
+using SFML.Window;
 
 namespace AgarioGame.Engine.Core.Input.KeyBind
 {
@@ -37,6 +38,8 @@ namespace AgarioGame.Engine.Core.Input.KeyBind
 
         public void RegisterManager()
         {
+            Dependency.Register(this);
+
             Subscriber.SubscribeOnUpdate(this);
         }
     }

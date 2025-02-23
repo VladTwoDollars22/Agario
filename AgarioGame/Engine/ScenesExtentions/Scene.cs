@@ -2,6 +2,7 @@
 using AgarioGame.Engine.Core.Input.KeyBind;
 using AgarioGame.Engine.Factories;
 using AgarioGame.Engine.UIExtentions.Factories;
+using AgarioGame.Engine.Utilities;
 
 namespace AgarioGame.Engine.ScenesExtentions
 {
@@ -14,37 +15,45 @@ namespace AgarioGame.Engine.ScenesExtentions
         protected ControllerFactory _controllerFactory;
         protected KeyBindManager _keyBindManager;
         protected UIObjectFactory _uIObjectFactory;
+
         public Scene()
         {
-            _gameObjFactory = new();
-            _controllerFactory = new();
-            _keyBindManager = new();
-            _uIObjectFactory = new();
+            _activeObjects = new List<GameObject>();
+            _activeControllers = new List<Controller>();
 
-            _activeObjects = new();
-            _activeControllers = new();
+            _gameObjFactory = Dependency.Get<GameObjectFactory>() ?? new GameObjectFactory();
+            _controllerFactory = Dependency.Get<ControllerFactory>() ?? new ControllerFactory();
+            _keyBindManager = Dependency.Get<KeyBindManager>() ?? new KeyBindManager();
+            _uIObjectFactory = Dependency.Get<UIObjectFactory>() ?? new UIObjectFactory();
+
+            _gameObjFactory.SetActiveObjectsList(_activeObjects);
+            _controllerFactory.SetActiveControllersList(_activeControllers);
         }
+
         public virtual void Initialisation() { }
+
         public virtual void Logic() { }
+
         public virtual void OnDelete() { }
+
         public void Delete()
         {
             OnDelete();
             DestroyObjects();
-            DestroyControlles();
+            DestroyControllers();
         }
 
         private void DestroyObjects()
         {
-            foreach(GameObject gameObj in _activeObjects)
+            foreach (GameObject gameObj in _activeObjects)
             {
                 gameObj.Destroy();
             }
         }
 
-        private void DestroyControlles()
+        private void DestroyControllers()
         {
-            foreach(Controller ctrl in _activeControllers)
+            foreach (Controller ctrl in _activeControllers)
             {
                 ctrl.Destroy();
             }

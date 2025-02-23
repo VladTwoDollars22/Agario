@@ -1,9 +1,14 @@
-﻿using TGUI;
+﻿using AgarioGame.Engine.Utilities;
+using TGUI;
 
 namespace AgarioGame.Engine.UIExtentions.Factories
 {
     public class UIObjectFactory
     {
+        public UIObjectFactory()
+        {
+            Dependency.Register(this);
+        }
         public Canvas InstantiateCanvas()
         {
             Canvas canvas = new(GameLoop.Window);
