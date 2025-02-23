@@ -33,6 +33,10 @@ namespace AgarioGame.Engine.Core.Input.KeyBind
 
             return newKeyBind;
         }
+        public void RemoveAllBinds()
+        {
+            _keyBinds = new();
+        }
         public KeyBind GetKeyBind(string name)
             => _keyBinds.Single(x => x.Name == name);
 

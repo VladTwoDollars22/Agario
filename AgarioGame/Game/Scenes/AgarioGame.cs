@@ -5,10 +5,12 @@ using AgarioGame.Engine.Animation;
 using AgarioGame.Game.Configs;
 using AgarioGame.Engine.ScenesExtentions;
 using AgarioGame.Engine;
+using AgarioGame.Engine.UIExtentions.Factories;
+using AgarioGame.Engine.Utilities;
 
 namespace AgarioGame.Game.Scenes
 {
-    public class GameScene : Scene
+    public class AgarioGame : Scene
     {
         private List<AIController> _enemyList;
 
@@ -22,12 +24,12 @@ namespace AgarioGame.Game.Scenes
         private int enemyCount;
 
         private UnitFactory _unitFactory;
-        public GameScene() : base()
+        public AgarioGame() : base()
         {
             _enemyList = new();
             foodList = new();
 
-            _unitFactory = new();
+            _unitFactory = Dependency.Get<UnitFactory>() ?? new UnitFactory();
         }
         public override void Initialisation()
         {

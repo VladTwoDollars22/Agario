@@ -1,4 +1,5 @@
-﻿using AgarioGame.Engine.Conrollers;
+﻿using System.Xml.Linq;
+using AgarioGame.Engine.Conrollers;
 using AgarioGame.Engine.Core.Input.KeyBind;
 using AgarioGame.Engine.Factories;
 using AgarioGame.Engine.UIExtentions.Factories;
@@ -41,6 +42,7 @@ namespace AgarioGame.Engine.ScenesExtentions
             OnDelete();
             DestroyObjects();
             DestroyControllers();
+            ClearKeyBinds();
         }
 
         private void DestroyObjects()
@@ -57,6 +59,10 @@ namespace AgarioGame.Engine.ScenesExtentions
             {
                 ctrl.Destroy();
             }
+        }
+        private void ClearKeyBinds()
+        {
+            _keyBindManager.RemoveAllBinds();
         }
     }
 }

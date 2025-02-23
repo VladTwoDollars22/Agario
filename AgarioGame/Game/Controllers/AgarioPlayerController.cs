@@ -1,6 +1,7 @@
 ﻿using AgarioGame.Engine;
-using AgarioGame.Engine.Conrollers;
+using AgarioGame.Game.Scenes;
 using AgarioGame.Engine.Core.Input.KeyBind;
+using AgarioGame.Engine.ScenesExtentions;
 using AgarioGame.Game.AudioExtensions;
 using SFML.System;
 
@@ -63,11 +64,18 @@ namespace AgarioGame.Game.Controllers
         {
             KeyBindManager.AddKeyBind("Swap",SFML.Window.Keyboard.Key.F);
             KeyBindManager.GetKeyBind("Swap").AddOnDownCallback(Swap);
-        }
 
+            KeyBindManager.AddKeyBind("Rest", SFML.Window.Keyboard.Key.R);
+            KeyBindManager.GetKeyBind("Rest").AddOnDownCallback(RestartGame);
+        }
+        public void RestartGame()
+        {
+            SceneManager.ChangeSceneOn(new AgarioGame.Game.Scenes.AgarioGame());
+        }
         public void OnDestroy()
         {
             KeyBindManager.GetKeyBind("Swap").ResetOnDownCallback();
+            KeyBindManager.GetKeyBind("Rest").ResetOnDownCallback();
         }
     }
 }

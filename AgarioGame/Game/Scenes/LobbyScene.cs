@@ -22,7 +22,7 @@ namespace AgarioGame.Game.Scenes
         }
         private void Play()
         {
-            SceneManager.ChangeSceneOn(new GameScene());
+            SceneManager.ChangeSceneOn(new AgarioGame());
         }
         private void InitializeFon()
         {
