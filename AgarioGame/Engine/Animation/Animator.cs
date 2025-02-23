@@ -4,7 +4,7 @@ namespace AgarioGame.Engine.Animation
 {
     public class Animator : IUpdatable
     {
-        private StateMachine _stateMachine;
+        private State _currentState;
         private Sprite _animatedSprite;
 
         private Dictionary<State, List<Transition>> _transitions;
@@ -16,11 +16,23 @@ namespace AgarioGame.Engine.Animation
             _transitions = new();
             _transitions.Add(startState, new List<Transition>());
 
-            _stateMachine = new(startState,_transitions);
+            _currentState = startState;
         }
         public void Update()
         {
-            _stateMachine.Logic();
+            Logic();
+        }
+        public void Logic()
+        {
+            List<Transition> currentTransitions = _transitions[_currentState];
+
+            foreach (Transition transition in currentTransitions)
+            {
+                if (transition.CanDoTransition())
+                {
+                    ChangeState(transition.TargetState);
+                }
+            }
         }
         public void SetSprite(Sprite sprite)
         {
@@ -80,6 +92,13 @@ namespace AgarioGame.Engine.Animation
             {
                 _transitions[stateFrom].Add(new Transition(stateTo));
             }
+        }
+        private void ChangeState(State newState)
+        {
+            Console.WriteLine($"Changing state from {_currentState.Name} to {newState.Name}");
+            _currentState.OnExit();
+            _currentState = newState;
+            _currentState.OnEnter();
         }
         private State GetStateByName(string name)
         {
