@@ -9,13 +9,16 @@ namespace AgarioGame.Engine.ScenesExtentions
         {
             if (scene == null) return;
 
-            CurrentScene.Delete();
-            CurrentScene = scene;
-            CurrentScene.Initialisation();
-        }
-        public static void SetScene(Scene scene)
-        {
-            CurrentScene = scene;
+            if(CurrentScene == null)
+            {
+                CurrentScene = scene;
+            }
+            else
+            {
+                CurrentScene.Delete();
+                CurrentScene = scene;
+                CurrentScene.Initialisation();
+            }
         }
     }
 }

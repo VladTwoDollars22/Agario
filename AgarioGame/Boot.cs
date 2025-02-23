@@ -8,7 +8,7 @@ namespace AgarioGame
         public static void Main(string[] args)
         {
             GameLoop game = new GameLoop();
-            SceneManager.SetScene(new LobbyScene());
+            SceneManager.ChangeSceneOn(new LobbyScene());
 
             game.MainGameLoop();
         }
