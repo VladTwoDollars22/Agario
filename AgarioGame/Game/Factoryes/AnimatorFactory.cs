@@ -14,12 +14,6 @@ namespace AgarioGame.Game.Factoryes
             animator.CreateState("Move", new("Move", AnimationClipsConfig.Move), StateType.LoopedAnim);
             animator.CreateState("Eat", new("Eat", AnimationClipsConfig.Eat), StateType.LoopedAnim);
 
-            animator.AddTransition("Idle", "Move");
-            animator.AddTransition("Move", "Idle");
-            animator.AddTransition("Move", "Eat");
-            animator.AddTransition("Eat", "Idle");
-            animator.AddTransition("Idle", "Eat");
-
             Subscriber.SubscribeOnUpdate(animator);
 
             return animator;

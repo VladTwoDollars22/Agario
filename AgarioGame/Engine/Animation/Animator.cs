@@ -70,6 +70,11 @@ namespace AgarioGame.Engine.Animation
                 Console.WriteLine($"Стан {from} або {to} не мають переходу.");
             }
         }
+        public void AddTransitionAndCondition(string from, string to, Func<bool> condition)
+        {
+            AddTransition(from, to);
+            AddConditionToTransition(from,to,condition);
+        }
         public void AddTransition(string from, string to)
         {
             State stateFrom = null;

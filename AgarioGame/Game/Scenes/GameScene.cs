@@ -54,6 +54,8 @@ namespace AgarioGame.Game.Scenes
         {
             GameConfig.Initialize();
 
+            AnimationClipsConfig.Initialize();
+
             _foodCount = GameConfig.FoodCount;
             enemyCount = GameConfig.EnemyCount;
 

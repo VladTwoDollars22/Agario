@@ -80,11 +80,11 @@ namespace AgarioGame.Engine
         }
         private void InitializeConditions()
         {
-            Animator.AddConditionToTransition("Idle", "Move", () => _isMoving && !IsEating);
-            Animator.AddConditionToTransition("Idle", "Eat", () => IsEating);
-            Animator.AddConditionToTransition("Move", "Idle", () => !_isMoving && !IsEating);
-            Animator.AddConditionToTransition("Move", "Eat", () => IsEating);
-            Animator.AddConditionToTransition("Eat", "Idle", () => !IsEating);
+            Animator.AddTransitionAndCondition("Idle", "Move", () => _isMoving && !IsEating);
+            Animator.AddTransitionAndCondition("Idle", "Eat", () => IsEating);
+            Animator.AddTransitionAndCondition("Move", "Idle", () => !_isMoving && !IsEating);
+            Animator.AddTransitionAndCondition("Move", "Eat", () => IsEating);
+            Animator.AddTransitionAndCondition("Eat", "Idle", () => !IsEating);
         }
     }
 }
