@@ -1,5 +1,5 @@
-﻿using AgarioGame.Engine.Core.IniExtensions;
-using AgarioGame.Engine.Utilities;
+﻿using AgarioGame.Engine.Utilities;
+using AgarioGame.Engine.Utilities.IniExtensions;
 using SFML.Graphics;
 using SFML.System;
 

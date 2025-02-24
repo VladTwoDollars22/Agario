@@ -1,6 +1,6 @@
 ﻿using IniParser;
 using IniParser.Model;
-namespace AgarioGame.Engine.Core.IniExtensions
+namespace AgarioGame.Engine.Utilities.IniExtensions
 {
     public static class IniLoader
     {

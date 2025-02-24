@@ -1,7 +1,7 @@
 ﻿using SFML.System;
 using SFML.Graphics;
 
-namespace AgarioGame.Engine.Core.IniExtensions
+namespace AgarioGame.Engine.Utilities.IniExtensions
 {
     public static class IniParserUtil
     {
@@ -16,11 +16,11 @@ namespace AgarioGame.Engine.Core.IniExtensions
             string value = IniLoader.GetString(key);
             return int.TryParse(value, out int result) ? result : defaultValue;
         }
-        public static string GetString(string key,string defaultValue)
+        public static string GetString(string key, string defaultValue)
         {
             string value = IniLoader.GetString(key);
 
-            if(string.IsNullOrEmpty(value))
+            if (string.IsNullOrEmpty(value))
             {
                 return defaultValue;
             }
