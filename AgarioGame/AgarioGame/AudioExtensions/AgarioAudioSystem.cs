@@ -4,7 +4,7 @@ using SFML.Audio;
 
 namespace AgarioGame.Game.AudioExtensions
 {
-    public static class AudioSystem
+    public static class AgarioAudioSystem
     {
         private static Dictionary<string, Sound> sounds;
         private static string lastPlayedSound = null;

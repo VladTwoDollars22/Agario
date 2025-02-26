@@ -1,5 +1,6 @@
 ﻿using AgarioGame.Engine.ScenesExtentions;
 using AgarioGame.Game.Scenes;
+using AgarioGame.SeaBattleGame.Scenes;
 
 namespace AgarioGame
 {
@@ -8,7 +9,7 @@ namespace AgarioGame
         public static void Main(string[] args)
         {
             GameLoop game = new GameLoop();
-            SceneManager.ChangeSceneOn(new LobbyScene());
+            SceneManager.ChangeSceneOn(new SeaBattleGameScene());
 
             game.MainGameLoop();
         }

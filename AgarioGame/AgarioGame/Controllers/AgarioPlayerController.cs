@@ -41,7 +41,7 @@ namespace AgarioGame.Game.Controllers
             }
             else
             {
-                AudioSystem.PlaySound("moving");
+                AgarioAudioSystem.PlaySound("moving");
             }
         }
         public void Swap()

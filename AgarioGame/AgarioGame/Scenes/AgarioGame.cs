@@ -47,9 +47,9 @@ namespace AgarioGame.Game.Scenes
         }
         private void InitializeAudio()
         {
-            AudioSystem.InitializeAudio();
+            AgarioAudioSystem.InitializeAudio();
 
-            AudioSystem.PlaySound("gamestarted");
+            AgarioAudioSystem.PlaySound("gamestarted");
         }
         private void InitializeConfigs()
         {

@@ -75,7 +75,7 @@ namespace AgarioGame.Engine
         }
         public void EatMe()
         {
-            AudioSystem.PlaySound("eating");
+            AgarioAudioSystem.PlaySound("eating");
             Destroy();
         }
         private void InitializeConditions()

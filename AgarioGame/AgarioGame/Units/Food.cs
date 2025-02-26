@@ -27,7 +27,7 @@ namespace AgarioGame.Engine
         }
         public void EatMe()
         {
-            AudioSystem.PlaySound("eating");
+            AgarioAudioSystem.PlaySound("eating");
             _isEaten = true;
             SetVisibility(false);
         }

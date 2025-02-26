@@ -15,7 +15,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Game\IniFiles\" />
+    <Folder Include="AgarioGame\IniFiles\" />
+    <Folder Include="SeaBattleGame\Configs\" />
   </ItemGroup>
 
 </Project>
