@@ -1,9 +1,13 @@
-﻿namespace AgarioGame.SeaBattleGame.Units
+﻿using AgarioGame.SeaBattleGame.GameExtentions;
+using TGUI;
+
+namespace AgarioGame.SeaBattleGame.Units
 {
     public class Player
     {
         public string NickName;
         public List<int> ships;
+        public GridMap map;
 
         public int HP { get; private set; }
 
