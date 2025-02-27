@@ -7,7 +7,8 @@ using AgarioGame.Engine.ScenesExtentions;
 
 namespace AgarioGame.SeaBattleGame.Scenes
 {
-    internal class SeaBattleGameScene : Scene
+    public class SeaBattleGameScene : Scene
     {
+
     }
 }
