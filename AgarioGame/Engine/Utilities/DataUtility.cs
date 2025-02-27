@@ -7,10 +7,13 @@ namespace AgarioGame.Engine.Utilities
     public static class DataUtility
     {
         public static readonly string DataFolderPath;
+        public static readonly JsonSerializerOptions Options;
 
         static DataUtility()
         {
             DataFolderPath = PathUtilite.CalculatePath("Resources/Data", false);
+
+            Options = new JsonSerializerOptions { WriteIndented = true };
 
             if (string.IsNullOrEmpty(DataFolderPath))
             {
@@ -45,7 +48,7 @@ namespace AgarioGame.Engine.Utilities
 
             try
             {
-                string json = JsonSerializer.Serialize(data, new JsonSerializerOptions { WriteIndented = true });
+                string json = JsonSerializer.Serialize(data, Options);
                 File.WriteAllText(fullPath, json);
             }
             catch (Exception)
