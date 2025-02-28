@@ -13,6 +13,7 @@ namespace AgarioGame.SeaBattleGame.Units
 
         public (int width, int heigth) radarArea;
         public bool usingRadar = false;
+        public float radarUsingTime;
         public (int x, int y) radarPoint;
         public int radarsCount;
 

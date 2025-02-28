@@ -46,7 +46,7 @@ namespace AgarioGame.SeaBattleGame.GameExtentions
                         "Cells/empty.png"
                     );
 
-                    Console.WriteLine(Map[i,j]);
+                    Map[i, j].SetVisiblity(true);
                 }
             }
 

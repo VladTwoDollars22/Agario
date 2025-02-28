@@ -52,21 +52,25 @@ namespace AgarioGame.SeaBattleGame.Units
 
             Texture newTexture = null;
 
+            if(state == CellState.Empty && !_isVisible)
+            {
+                newTexture = Resources.GetTexture("Cells/empty.png");
+            }
             if(state == CellState.Empty)
             {
-                newTexture = Resources.GetTexture("newTexture");
+                newTexture = Resources.GetTexture("Cells/empty.png");
             }
             if (state == CellState.Missed)
             {
-                newTexture = Resources.GetTexture("newTexture");
+                newTexture = Resources.GetTexture("Cells/missed.png");
             }
             if (state == CellState.Hited)
             {
-                newTexture = Resources.GetTexture("newTexture");
+                newTexture = Resources.GetTexture("Cells/hited.png");
             }
             if (state == CellState.HasShip)
             {
-                newTexture = Resources.GetTexture("newTexture");
+                newTexture = Resources.GetTexture("Cells/hasship.png");
             }
 
             if (newTexture == null)

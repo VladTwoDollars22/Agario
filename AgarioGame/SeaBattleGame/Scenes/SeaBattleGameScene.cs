@@ -25,6 +25,7 @@ namespace AgarioGame.SeaBattleGame.Scenes
         public override void Initialisation()
         {
             map.CreateField();
+            map.PlaceShips(new List<int> { 1,1,1,1});
         }
     }
 }
