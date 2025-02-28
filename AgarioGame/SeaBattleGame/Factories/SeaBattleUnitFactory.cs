@@ -31,5 +31,12 @@ namespace AgarioGame.SeaBattleGame.Factories
 
             return cell;
         }
+
+        public Player InstantiatePlayer(string nickName, int radarCount, (int X, int Y) radarArea, (int X, int Y) fieldSize, List<int> ships, Vector2f fieldStartPos)
+        {
+            Player player = new(nickName,radarCount,radarArea,fieldSize,ships,fieldStartPos);
+
+            return player;
+        }
     }
 }

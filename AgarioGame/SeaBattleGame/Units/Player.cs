@@ -1,50 +1,56 @@
 ﻿using AgarioGame.SeaBattleGame.GameExtentions;
+using SFML.System;
 using TGUI;
 
 namespace AgarioGame.SeaBattleGame.Units
 {
     public class Player
     {
-        public string NickName;
-        public List<int> ships;
-        public GridMap map;
+        private string _nickName;
 
-        public int HP { get; private set; }
+        private GridMap _map;
+        private List<int> _ships;
+        private int _hp;
 
-        public (int width, int heigth) radarArea;
-        public bool usingRadar = false;
-        public float radarUsingTime;
-        public (int x, int y) radarPoint;
-        public int radarsCount;
+        private (int width, int heigth) _radarArea;
+        private float _radarUsingTime;
+        private (int x, int y) _radarPoint;
+        private int _radarsCount;
 
-        public (int width, int height) fieldSize;
+        private (int width, int height) _fieldSize;
 
-        public Player(string nickName)
+        public string NickName => _nickName;
+        public GridMap Map => _map;
+
+        public Player(string nickName, int radarCount, (int X, int Y) radarArea,(int X,int Y) fieldSize,List<int> ships,SFML.System.Vector2f fieldStartPos)
         {
-            NickName = nickName;
-            radarsCount = 1;
-            radarPoint = (-1, -1);
-            radarArea = (3, 3);
+            _nickName = nickName;
 
-            fieldSize = (9, 9);
+            _radarsCount = radarCount;
+            _radarPoint = (-1,-1);
+            _radarArea = radarArea;
 
-            ships = new List<int> { 4, 3, 3, 2, 2, 2, 1, 1, 1, 1 };
+            _fieldSize = fieldSize;
 
-            HP = ships.Sum();
+            _ships = ships;
+
+            _hp = _ships.Sum();
+
+            _map = new(_fieldSize, fieldStartPos, _ships);
         }
 
         public void TakeDamage(int damage)
         {
-            HP -= damage;
+            _hp -= damage;
         }
 
         public void UseRadar()
         {
-            radarsCount--;
+            _radarsCount--;
         }
         public void Reset()
         {
-            HP = ships.Sum();
+            _hp = _ships.Sum();
         }
     }
 }

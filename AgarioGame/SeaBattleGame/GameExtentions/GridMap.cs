@@ -12,54 +12,63 @@ namespace AgarioGame.SeaBattleGame.GameExtentions
         Hitting,
         Repeating,
     }
+
     public class GridMap
     {
         private Random _random = new Random();
-        public int Width { get; private set; }
-        public int Height { get; private set; }
+        public (int width, int height) Size { get; private set; }
         public Vector2f StartPoint { get; private set; }
 
-        private Cell[,] Map;
-        private bool placed;
+        private List<int> _ships;
+        private Cell[,] _map;
+        private bool _placed;
         private SeaBattleUnitFactory _unitFactory;
 
-        public GridMap(int width, int height, Vector2f startPoint)
+        public GridMap((int width, int height) size, Vector2f startPoint, List<int> ships)
         {
-            Width = width;
-            Height = height;
+            Size = size;
             StartPoint = startPoint;
-            Map = new Cell[height, width];
+            _ships = ships;
+            _map = new Cell[size.height, size.width];
+
             _unitFactory = Dependency.Get<SeaBattleUnitFactory>();
+        }
+
+        public void SetSize((int width, int height) newSize)
+        {
+            Size = newSize;
+            _map = new Cell[newSize.height, newSize.width];
         }
 
         public Cell[,] CreateField()
         {
-            Map = new Cell[Height, Width];
+            _map = new Cell[Size.height, Size.width];
 
-            for (int i = 0; i < Height; i++)
+            for (int i = 0; i < Size.height; i++)
             {
-                for (int j = 0; j < Width; j++)
+                for (int j = 0; j < Size.width; j++)
                 {
-                    Map[i, j] = _unitFactory.InstantiateCell(
-                        new Vector2f(StartPoint.X + j * 100 - Width * 25, StartPoint.Y + i * 100 - Height * 25),
+                    _map[i, j] = _unitFactory.InstantiateCell(
+                        new Vector2f(StartPoint.X + j * 100 - Size.width * 25, StartPoint.Y + i * 100 - Size.height * 25),
                         new Vector2f(0.2f, 0.2f),
                         "Cells/empty.png"
                     );
 
-                    Map[i, j].SetVisiblity(true);
+                    _map[i, j].SetVisiblity(true);
                 }
             }
 
-            return Map;
+            return _map;
         }
-        public void PlaceShips(List<int> ships)
+
+        public void PlaceShips()
         {
-            foreach (var shipLength in ships)
+            foreach (var shipLength in _ships)
             {
-                placed = false;
+                _placed = false;
                 int iteration = 0;
 
-                while (!placed)
+                while (!_placed)
                 {
                     if (iteration > 10000)
                         Console.Error.WriteLine("Неможливо розмістити всі кораблі");
@@ -73,14 +82,16 @@ namespace AgarioGame.SeaBattleGame.GameExtentions
                 }
             }
         }
+
         private void TryPlaceShip(Vector2f mainPoint, int shipLength, int axis)
         {
             if (CanPlaceShip(mainPoint, shipLength, axis))
             {
                 PlaceShip(mainPoint, shipLength, axis);
-                placed = true;
+                _placed = true;
             }
         }
+
         private bool CanPlaceShip(Vector2f mainPoint, int shipLength, int axis)
         {
             for (int i = 0; i < shipLength; i++)
@@ -93,32 +104,37 @@ namespace AgarioGame.SeaBattleGame.GameExtentions
             }
             return true;
         }
+
         private void PlaceShip(Vector2f mainPoint, int shipLength, int axis)
         {
             for (int i = 0; i < shipLength; i++)
             {
                 var nextPoint = GetNextPoint(mainPoint, axis, i);
-                Map[(int)nextPoint.X, (int)nextPoint.Y].SetShip(true);
+                _map[(int)nextPoint.X, (int)nextPoint.Y].SetShip(true);
             }
         }
+
         private Vector2f GetNextPoint(Vector2f mainPoint, int axis, int delta)
         {
             return axis == 1 ? new Vector2f(mainPoint.X + delta, mainPoint.Y) : new Vector2f(mainPoint.X, mainPoint.Y + delta);
         }
+
         public Cell GetCell(Vector2f point)
         {
-            return Map[(int)point.X, (int)point.Y];
+            return _map[(int)point.X, (int)point.Y];
         }
+
         private bool CanPlaceShipPart(int X, int Y)
         {
-            if (X < 0 || X >= Map.GetLength(0) || Y < 0 || Y >= Map.GetLength(1))
+            if (X < 0 || X >= _map.GetLength(0) || Y < 0 || Y >= _map.GetLength(1))
                 return false;
 
-            return Map[X, Y].GetCellState() == CellState.Empty;
+            return _map[X, Y].GetCellState() == CellState.Empty;
         }
+
         public ShootState GetShootState(Vector2f point)
         {
-            switch (Map[(int)point.X, (int)point.Y].GetCellState())
+            switch (_map[(int)point.X, (int)point.Y].GetCellState())
             {
                 case CellState.Empty:
                     return ShootState.Missing;
@@ -128,17 +144,20 @@ namespace AgarioGame.SeaBattleGame.GameExtentions
                     return ShootState.Repeating;
             }
         }
+
         public Vector2f GetRandomPoint()
         {
-            return new Vector2f(_random.Next(0, Width), _random.Next(0, Height));
+            return new Vector2f(_random.Next(0, Size.width), _random.Next(0, Size.height));
         }
+
         public Cell GetCell(int x, int y)
         {
-            return Map[x, y];
+            return _map[x, y];
         }
+
         public int GetMapLength()
         {
-            return Map.GetLength(1);
+            return Size.width;
         }
     }
 }
