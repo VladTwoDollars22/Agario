@@ -1,5 +1,6 @@
 ﻿using AgarioGame.Engine;
 using AgarioGame.Engine.Animation;
+using AgarioGame.Engine.Core.Time;
 using SFML.Graphics;
 
 namespace AgarioGame.SeaBattleGame.Units
@@ -15,7 +16,7 @@ namespace AgarioGame.SeaBattleGame.Units
     {
         private bool _hasShip;
         private bool _shooted;
-
+        private bool _isVisible;
         public CellState GetCellState()
         {
             return (_hasShip, _shooted) switch
@@ -31,10 +32,19 @@ namespace AgarioGame.SeaBattleGame.Units
             _hasShip = isHasShip;
             SetNewTexture();
         }
-        public void SetShooted()
+        public void SetShooted(bool isShooted)
         {
-            _shooted = true;
+            _shooted = isShooted;
             SetNewTexture();
+        }
+        public void SetVisiblity(bool isVisible)
+        {
+            _isVisible = isVisible;
+        }
+        public void SetTemporaryVisiblity(float seconds,bool visibility)
+        {
+            _isVisible = visibility;
+            TimerManager.Instance.SetTimeout(() => _isVisible = !visibility, seconds);
         }
         private void SetNewTexture()
         {
