@@ -44,7 +44,7 @@ namespace AgarioGame.SeaBattleGame.Units
         public void SetTemporaryVisiblity(float seconds,bool visibility)
         {
             _isVisible = visibility;
-            TimerManager.Instance.SetTimeout(() => _isVisible = !visibility, seconds);
+            TimerManager.Instance.SetTimeout(() => { _isVisible = !visibility; }, seconds);
         }
         private void SetNewTexture()
         {

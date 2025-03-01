@@ -42,5 +42,14 @@ namespace AgarioGame.Engine
 
             return (float)Math.Sqrt(deltaX * deltaX + deltaY * deltaY);
         }
+        public static (int x, int y) GetRandomPoint((int X,int Y) size)
+        {
+            (int newX, int newY) point;
+
+            point.newX = _random.Next(0,size.X);
+            point.newY = _random.Next(0,size.Y);
+
+            return point;
+        }
     }
 }

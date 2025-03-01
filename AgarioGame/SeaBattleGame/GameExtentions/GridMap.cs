@@ -19,13 +19,15 @@ namespace AgarioGame.SeaBattleGame.GameExtentions
         public (int width, int height) Size { get; private set; }
         public Vector2f StartPoint { get; private set; }
 
+        private bool _visibility;
         private List<int> _ships;
         private Cell[,] _map;
         private bool _placed;
         private SeaBattleUnitFactory _unitFactory;
 
-        public GridMap((int width, int height) size, Vector2f startPoint, List<int> ships)
+        public GridMap((int width, int height) size, Vector2f startPoint, List<int> ships,bool visibility)
         {
+            _visibility = visibility;
             Size = size;
             StartPoint = startPoint;
             _ships = ships;
@@ -54,13 +56,25 @@ namespace AgarioGame.SeaBattleGame.GameExtentions
                         "Cells/empty.png"
                     );
 
-                    _map[i, j].SetVisiblity(true);
+                    _map[i, j].SetVisiblity(_visibility);
                 }
             }
 
             return _map;
         }
+        public (int,int) GetCelWithPoint(Vector2f point)
+        {
+            for (int i = 0; i < Size.height; i++)
+            {
+                for (int j = 0; j < Size.width; j++)
+                {
+                    if (_map[j,i].ContainsPoint(point))
+                        return (j,i);
+                }
+            }
 
+            return (-1,-1);
+        }
         public void PlaceShips()
         {
             foreach (var shipLength in _ships)
@@ -82,7 +96,6 @@ namespace AgarioGame.SeaBattleGame.GameExtentions
                 }
             }
         }
-
         private void TryPlaceShip(Vector2f mainPoint, int shipLength, int axis)
         {
             if (CanPlaceShip(mainPoint, shipLength, axis))
@@ -119,7 +132,7 @@ namespace AgarioGame.SeaBattleGame.GameExtentions
             return axis == 1 ? new Vector2f(mainPoint.X + delta, mainPoint.Y) : new Vector2f(mainPoint.X, mainPoint.Y + delta);
         }
 
-        public Cell GetCell(Vector2f point)
+        public Cell GetCell((int X,int Y) point)
         {
             return _map[(int)point.X, (int)point.Y];
         }
@@ -131,8 +144,7 @@ namespace AgarioGame.SeaBattleGame.GameExtentions
 
             return _map[X, Y].GetCellState() == CellState.Empty;
         }
-
-        public ShootState GetShootState(Vector2f point)
+        public ShootState GetShootState((int X,int Y) point)
         {
             switch (_map[(int)point.X, (int)point.Y].GetCellState())
             {

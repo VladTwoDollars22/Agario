@@ -100,8 +100,10 @@ namespace AgarioGame.Engine
 
             Sprite.Position = nextPosition;
         }
-
-
+        public bool ContainsPoint(Vector2f point)
+        {
+            return GetBounds().Contains(point);
+        }
         public FloatRect GetBounds()
         {
             return Sprite.GetGlobalBounds();

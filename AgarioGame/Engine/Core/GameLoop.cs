@@ -1,4 +1,5 @@
 ﻿using AgarioGame.Engine;
+using AgarioGame.Engine.Core.Input;
 using AgarioGame.Engine.ScenesExtentions;
 using SFML.Graphics;
 using SFML.System;
@@ -65,6 +66,7 @@ namespace AgarioGame
             _window.DispatchEvents();
 
             MovementInput.UpdateInput();
+            MouseInput.UpdateInput();
             UpdateInput?.Invoke();
         }
         private void Update()
